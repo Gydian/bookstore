@@ -14,7 +14,7 @@
                 </div>
             </el-col>
             <el-col :xs="6" :sm="6" :md="6" :lg="4"> 
-                <el-button class="shoppingCart-btn" type="primary" v-loading.fullscreen.lock="fullscreenLoading">购物车</el-button>
+                <el-button class="shoppingCart-btn" type="primary" v-loading.fullscreen.lock="fullscreenLoading" @click="shoppingCart()">购物车</el-button>
             </el-col>
             <el-col :xs="6" :sm="6" :md="6" :lg="4"> 
                 <el-image :src="userSrc" class="user-image">
@@ -22,6 +22,7 @@
                         <i class="el-icon-picture-outline"></i>
                     </div>
                 </el-image>
+                <!-- <avatar username="Jane Doe"></avatar> -->
             </el-col>
         </el-row>
 
@@ -53,6 +54,8 @@
     </div>
 </template>
 <script>
+// import Avatar from 'vue-avatar/dist/Avatar'
+
 export default {
     name:'main',
     data(){
@@ -64,8 +67,10 @@ export default {
         }
     },
     methods:{
-
-    }
+        shoppingCart(){
+            this.$router.push({ path: '/shoppingCart' });
+        }
+    },
 }
 </script>
 <style scoped>
@@ -82,6 +87,6 @@ export default {
     width: 60%;
 }
 .user-image{
-    width: 50%;
+    width: 30%;
 }
 </style>
