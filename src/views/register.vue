@@ -6,6 +6,9 @@
                     <el-form-item label="账号" prop="account">
                         <el-input v-model="registerForm.account"></el-input>
                     </el-form-item>
+                    <el-form-item label="昵称" prop="name">
+                        <el-input v-model="registerForm.name"></el-input>
+                    </el-form-item>
                     <el-form-item label="密码" prop="pass">
                         <el-input v-model="registerForm.pass"></el-input>
                     </el-form-item>
@@ -31,6 +34,13 @@ export default {
                 return callback(new Error('账号不能为空'));
             }
             else {
+                callback();
+            }
+        };
+        var validName=(rule,value,callback)=>{
+            if(!value){
+                return callback(new Error('昵称不可为空'));
+            }else{
                 callback();
             }
         };
@@ -60,7 +70,8 @@ export default {
             registerForm: {
                 account: '',
                 pass: '',
-                checkPass: ''
+                checkPass: '',
+                name:''
             },
             fullscreenLoading: false,
             rules: {
@@ -72,7 +83,10 @@ export default {
                 ],
                 account: [
                     { validator: checkAccount, trigger: 'blur' }
-                ]
+                ],
+                name: [
+                    { validator: validName, trigger: 'blur' }
+                ],
             }
         }
     },
@@ -86,7 +100,8 @@ export default {
                     this.fullscreenLoading = true;
                     this.axios.post('/user/register', {
                         userName: this.registerForm.account,
-                        password: this.registerForm.pass
+                        password: this.registerForm.pass,
+                        name:this.registerForm.name
                     },
                     {
                         headers: {

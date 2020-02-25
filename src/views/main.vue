@@ -11,11 +11,11 @@
             <el-col :xs="6" :sm="6" :md="6" :lg="10"> 
                 <div>
                 <el-input v-model="input" placeholder="请输入搜索内容" prefix-icon="el-icon-search" class="search-input"></el-input>
-                <el-button type="primary">搜索</el-button>
+                <el-button type="primary" @click="search(input)">搜索</el-button>
                 </div>
             </el-col>
             <el-col :xs="6" :sm="6" :md="6" :lg="4"> 
-                <el-button id="shoppingCart" class="shoppingCart-btn" type="primary" v-loading.fullscreen.lock="fullscreenLoading" @click="changeCode(2)">购物车</el-button>
+                <el-button id="shoppingCart" class="shoppingCart-btn" type="primary" @click="changeCode(2)">购物车</el-button>
             </el-col>
             <el-col :xs="6" :sm="6" :md="6" :lg="4"> 
                 <el-image :src="userSrc" class="user-image" @click="personal()">
@@ -28,8 +28,8 @@
         </el-row>
         <el-row>
             <el-col>
-                <category v-if="componentExchangeCode == 1"></category>
-                <shopping-cart v-if="componentExchangeCode == 2"></shopping-cart>
+                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferBook="getBook"></category>
+                <shopping-cart v-if="componentExchangeCode == 2" :bookTransfer="book"></shopping-cart>
             </el-col>
         </el-row>
     </div>
@@ -43,11 +43,17 @@ export default {
     name:'main',
     data(){
         return {
-            fullscreenLoading: false,
             input:'',
             logoSrc:'http://img2.imgtn.bdimg.com/it/u=168577944,2704766384&fm=26&gp=0.jpg',
             userSrc:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582559980684&di=456abe524d8dd996422714c67a8f3fe6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F06%2F20180406192512_xfnyw.jpeg',
-            componentExchangeCode:1
+            componentExchangeCode:1,
+            book:{
+                bookId:'',
+                bookImg:'',
+                bookName:'',
+                price:''
+            },
+            hackReset:true,
         }
     },
     methods:{
@@ -64,7 +70,23 @@ export default {
         },
         personal(){
             this.$router.push({ path: '/personal' });
+        },
+        getBook(book){
+            this.book=book;
+        },
+        search(input){
+            input=this.input;
+            console.log(input)
+            //请求
+            //刷新
+            this.hackReset = false;
+	      	this.$nextTick(() => {
+	       		this.hackReset = true
+	      	})
         }
+    },
+    created:function(){
+        //请求
     },
     components:{
         category,
