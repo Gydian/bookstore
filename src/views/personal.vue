@@ -82,7 +82,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .logo-image{
     width: 6%;
     float: left;

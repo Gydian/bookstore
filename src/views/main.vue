@@ -28,8 +28,10 @@
         </el-row>
         <el-row>
             <el-col>
-                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferBook="getBook"></category>
-                <shopping-cart v-if="componentExchangeCode == 2" :bookTransfer="book"></shopping-cart>
+                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferBook="transferBook" @transferCode="changeCode"></category>
+                <shopping-cart v-if="componentExchangeCode == 2" :bookTransfer="book" @transferComponent="changeCode" @addOrder="addOrder" @clearBook="clearBook"></shopping-cart>
+                <book-detail v-if="componentExchangeCode == 3"></book-detail>
+                <add-order v-if="componentExchangeCode == 4" :orderAdd="order"></add-order>
             </el-col>
         </el-row>
     </div>
@@ -38,6 +40,8 @@
 // import Avatar from 'vue-avatar/dist/Avatar'
 import category from '../components/category'
 import shoppingCart from '../components/shoppingCart'
+import bookDetail from '../components/bookDetail'
+import addOrder from '../components/addOrder'
 
 export default {
     name:'main',
@@ -54,24 +58,17 @@ export default {
                 price:''
             },
             hackReset:true,
+            order:''
         }
     },
     methods:{
         changeCode(code) {
             this.componentExchangeCode = code;
-            if (code == '1') {
-                document.getElementById('shoppingCart').classList.remove("activeBtn");
-                document.getElementById('category').classList.add("activeBtn");
-            }
-            else if (code == '2') {
-                document.getElementById('category').classList.remove("activeBtn");
-                document.getElementById('shoppingCart').classList.add("activeBtn");
-            }
         },
         personal(){
             this.$router.push({ path: '/personal' });
         },
-        getBook(book){
+        transferBook(book){
             this.book=book;
         },
         search(input){
@@ -83,14 +80,24 @@ export default {
 	      	this.$nextTick(() => {
 	       		this.hackReset = true
 	      	})
+        },
+        clearBook(data){
+            this.book=data;
+            console.log('111')
+        },
+        addOrder(data){
+            this.order=data;
         }
     },
     created:function(){
         //请求
+
     },
     components:{
         category,
-        shoppingCart
+        shoppingCart,
+        bookDetail,
+        addOrder
     }
 }
 </script>

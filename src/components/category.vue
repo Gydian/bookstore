@@ -4,10 +4,12 @@
             <el-tab-pane label="全部">
                 <div>
                     <ul class="bookList">
-                        <li v-for="book in books" :key="book" @click="addToCart(book)">
-                            <span class=""><img :src="book.bookImg" width=100%></span>
-                            <span class="bookName">{{book.bookName}}</span>
-                            <span class="bookPrice">¥{{book.price}}元</span>
+                        <li v-for="book in books" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.bookImg" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.bookName}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -39,7 +41,7 @@ export default {
               bookImg:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582630286690&di=a5f3489d9d3e3227bae051b6df27f4c7&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201812%2F14%2F20181214235112_jbiio.thumb.700_0.jpg",
               bookName:'月亮与六便士',
               price:15
-          }]
+          }],
         }
     },
     props:[
@@ -52,7 +54,19 @@ export default {
                 message: '已添加至购物车！',
                 type: 'success'
             });
+        },
+        toDetail(book){
+            this.$emit('transferCode',3);
         }
+    },
+    mounted:function(){
+        // this.axios.get('')
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     }
 }
 </script>
@@ -81,11 +95,13 @@ export default {
     font-size: 18px;
     text-align: center;
 }
-
 .bookPrice{
     font-size: 16px;
     display: block;
     text-align: center;
 }
-
+.iconfont{
+    font-size: 24px;
+    padding-left: 10%;
+}
 </style>

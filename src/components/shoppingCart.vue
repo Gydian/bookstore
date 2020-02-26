@@ -1,9 +1,9 @@
 <template>
     <div>
         <el-table :data="tableData" border class="cart-div"> 
-            <el-table-column prop="" label="选择" align="center" width="100%">
+            <el-table-column prop="choice" label="选择" align="center" width="100%">
                 <template slot-scope="scope">
-                    <el-checkbox v-model="checked"></el-checkbox>
+                    <el-checkbox v-model="scope.row.choice"></el-checkbox>
                 </template>
             </el-table-column>
             <el-table-column prop="bookImg" label="商品" width="150%" align="center">
@@ -27,7 +27,7 @@
         </div>
         <div class="below-btn">
             <el-button @click="deleteAll">全部清空</el-button>
-            <el-button @click="checkout">结账</el-button>
+            <el-button @click="checkout()">结账</el-button>
             <!-- type有danger，warning，success等type -->
         </div>
     </div>
@@ -43,10 +43,10 @@ export default {
                     bookImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582633222938&di=e35ff1eaeae03cf6a9490ad957a2e7e2&imgtype=0&src=http%3A%2F%2Fpics3.baidu.com%2Ffeed%2F2fdda3cc7cd98d10f1d4501f7aae7e0a7bec9036.jpeg%3Ftoken%3D443af596fdf466f79ccd90c425b61da0%26s%3DAD44834FC672B7D413C40CB203005006',
                     bookName:'河山大好',
                     count:1,
-                    price:33
+                    price:33,
+                    choice:false
                 }
             ],
-            checked:false,
             totalCount:0,
             totalMoney:0,
         }
@@ -69,7 +69,7 @@ export default {
                 arry[0].count++;
                 //数据库
             }else if(book.bookId!=''){
-                let newBook={bookId:book.bookId,bookName:book.bookName,price:book.price,count:1,bookImg:book.bookImg};
+                let newBook={bookId:book.bookId,bookName:book.bookName,price:book.price,count:1,bookImg:book.bookImg,choice:false};
                 this.tableData.push(newBook);
                 //数据库
             }
@@ -95,11 +95,16 @@ export default {
             });
         },
         checkout(){
-
+            this.$emit('transferComponent',4);
+            this.$emit('addOrder','');
+            this.tableData=this.tableData.filter(o => o.choice!=true);
         }
     },
     beforeMount:function(){
-        this.add(this.bookTransfer);
+        if(this.bookTransfer!=''){
+            this.add(this.bookTransfer);
+            this.$emit('clearBook','');
+        }
     }
 }
 </script>
