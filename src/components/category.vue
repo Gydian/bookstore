@@ -61,13 +61,13 @@ export default {
         }
     },
     mounted:function(){
-        // this.axios.get('')
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+        this.axios.get('/books/allBook/all')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 }
 </script>

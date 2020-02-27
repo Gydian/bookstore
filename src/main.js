@@ -11,7 +11,7 @@ import qs from 'qs'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
-// axios.defaults.baseURL = 'http://192.168.11.249:9000'
+axios.defaults.baseURL = 'http://localhost:9010'
 // axios.defaults.headers.post['Content-Type'] = "application/json"
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = 'http://192.168.11.249:9000'
 // // axios.defaults.withCredentials = true;
