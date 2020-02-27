@@ -1,35 +1,39 @@
 <template>
     <div>
-        <el-table :data="tableData" border class="cart-div"> 
-            <el-table-column prop="choice" label="选择" align="center" width="100%">
-                <template slot-scope="scope">
-                    <el-checkbox v-model="scope.row.choice"></el-checkbox>
-                </template>
-            </el-table-column>
-            <el-table-column prop="bookImg" label="商品" width="150%" align="center">
-                <template slot-scope="scope">
-                    <img  :src="scope.row.bookImg" alt="" style="width: 50px;height: 50px">
-                </template>
-            </el-table-column>
-            <el-table-column prop="bookName" label="商品名称" align="center"></el-table-column>
-            <el-table-column prop="count" label="数量" width="100%" align="center"></el-table-column>
-            <el-table-column prop="price" label="价格" align="center"></el-table-column>
-            <el-table-column label="操作" width="100%" fixed="right" align="center">
-                <template slot-scope="scope">
-                    <el-button type="text" size="small" @click="deleteSingle(scope.row)">删除</el-button>
-                    <el-button type="text" size="small" @click="add(scope.row)">增加</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <div class="total"> 
-            <span>数量：</span> {{totalCount}} &nbsp &nbsp &nbsp
-            <span>金额：¥</span> {{totalMoney}} <span>元</span>
-        </div>
-        <div class="below-btn">
-            <el-button @click="deleteAll">全部清空</el-button>
-            <el-button @click="checkout()">结账</el-button>
-            <!-- type有danger，warning，success等type -->
-        </div>
+        <el-row>
+            <el-col :span="20" :offset="2">
+                <el-table :data="tableData" border class="cart-div"> 
+                    <el-table-column prop="choice" label="选择" align="center" width="100%">
+                        <template slot-scope="scope">
+                            <el-checkbox v-model="scope.row.choice"></el-checkbox>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="bookImg" label="商品" width="150%" align="center">
+                        <template slot-scope="scope">
+                            <img  :src="scope.row.bookImg" alt="" style="width: 50px;height: 50px">
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="bookName" label="商品名称" align="center"></el-table-column>
+                    <el-table-column prop="count" label="数量" width="100%" align="center"></el-table-column>
+                    <el-table-column prop="price" label="价格" align="center"></el-table-column>
+                    <el-table-column label="操作" width="100%" fixed="right" align="center">
+                        <template slot-scope="scope">
+                            <el-button type="text" size="small" @click="deleteSingle(scope.row)">删除</el-button>
+                            <el-button type="text" size="small" @click="add(scope.row)">增加</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div class="total"> 
+                    <span>数量：</span> {{totalCount}} &nbsp &nbsp &nbsp
+                    <span>金额：¥</span> {{totalMoney}} <span>元</span>
+                </div>
+                <div class="below-btn">
+                    <el-button @click="deleteAll">全部清空</el-button>
+                    <el-button @click="checkout()">结账</el-button>
+                    <!-- type有danger，warning，success等type -->
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 <script>
@@ -49,6 +53,7 @@ export default {
             ],
             totalCount:0,
             totalMoney:0,
+            order:[],
         }
     },
     props:[
@@ -96,8 +101,9 @@ export default {
         },
         checkout(){
             this.$emit('transferComponent',4);
-            this.$emit('addOrder','');
-            this.tableData=this.tableData.filter(o => o.choice!=true);
+            this.order=this.tableData.filter(o => o.choice==true);
+            this.$emit('addOrder',this.order);
+            // this.tableData=this.tableData.filter(o => o.choice!=true);//确认下单后直接从数据库中删除
         }
     },
     beforeMount:function(){
@@ -110,10 +116,7 @@ export default {
 </script>
 <style scoped>
 .cart-div{
-    width: 80%;
-    margin-left: 10%;
     margin-top: 4%;
-    text-align: center;
 }
 .total{
     padding: 1%;
@@ -121,13 +124,11 @@ export default {
     border-bottom: 1px solid rgb(228, 227, 227);
     border-right: 1px solid rgb(228, 227, 227);
     border-left: 1px solid rgb(228, 227, 227);
-    width: 78%;
-    margin-left: 10%
 }
 .below-btn{
     margin-top: 3%
 }
 .below-btn button{
-    width: 7%
+    width: 8%
 }
 </style>

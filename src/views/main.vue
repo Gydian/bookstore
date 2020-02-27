@@ -58,7 +58,7 @@ export default {
                 price:''
             },
             hackReset:true,
-            order:''
+            order:[],
         }
     },
     methods:{

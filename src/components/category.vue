@@ -23,6 +23,7 @@
             <el-tab-pane label="哲学">哲学</el-tab-pane>
             <el-tab-pane label="科技">科技</el-tab-pane>
             <el-tab-pane label="健康">健康</el-tab-pane>
+            <!-- all novel parenting art history education management philosophy technology health -->
         </el-tabs>
     </div>
 </template>
