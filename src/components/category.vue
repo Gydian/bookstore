@@ -5,7 +5,7 @@
                 <div>
                     <ul class="bookList">
                         <li v-for="book in allbooks" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -27,14 +27,98 @@
                     </ul>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="育儿">育儿</el-tab-pane>
-            <el-tab-pane label="艺术">艺术</el-tab-pane>
-            <el-tab-pane label="历史">历史</el-tab-pane>
-            <el-tab-pane label="教辅">教辅</el-tab-pane>
-            <el-tab-pane label="管理">管理</el-tab-pane>
-            <el-tab-pane label="哲学">哲学</el-tab-pane>
-            <el-tab-pane label="科技">科技</el-tab-pane>
-            <el-tab-pane label="健康">健康</el-tab-pane>
+            <el-tab-pane label="育儿">
+                <div>
+                    <ul class="bookList">
+                        <li v-for="book in parenting" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="艺术">
+                <div>
+                    <ul class="bookList">
+                        <li v-for="book in art" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="历史"><div>
+                    <ul class="bookList">
+                        <li v-for="book in history" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div></el-tab-pane>
+            <el-tab-pane label="教辅"><div>
+                    <ul class="bookList">
+                        <li v-for="book in education" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div></el-tab-pane>
+            <el-tab-pane label="管理"><div>
+                    <ul class="bookList">
+                        <li v-for="book in management" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div></el-tab-pane>
+            <el-tab-pane label="哲学"><div>
+                    <ul class="bookList">
+                        <li v-for="book in philosophy" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div></el-tab-pane>
+            <el-tab-pane label="科技"><div>
+                    <ul class="bookList">
+                        <li v-for="book in technology" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div></el-tab-pane>
+            <el-tab-pane label="健康"><div>
+                    <ul class="bookList">
+                        <li v-for="book in health" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div></el-tab-pane>
             <!-- all novel parenting art history education management philosophy technology health -->
         </el-tabs>
     </div>
@@ -46,6 +130,14 @@ export default {
         return{
             allbooks:[],
             novel:[],
+            parenting:[],
+            art:[],
+            history:[],
+            education:[],
+            management:[],
+            philosophy:[],
+            technology:[],
+            health:[],
         }
     },
     props:[
@@ -75,11 +167,91 @@ export default {
                 console.log(error);
             });
         //novel
-        this.axios.get('/books/allBook/all')
+        this.axios.get('/books/allBook/novel')
             .then(function (response) {
                 console.log(response);
                 let res = response.data;
                 that.novel = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //parenting
+        this.axios.get('/books/allBook/parenting')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.parenting = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //art
+        this.axios.get('/books/allBook/art')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.art = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //history
+        this.axios.get('/books/allBook/history')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.history = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //education
+        this.axios.get('/books/allBook/education')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.education = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //management
+        this.axios.get('/books/allBook/management')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.management = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //philosophy
+        this.axios.get('/books/allBook/philosophy')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.philosophy = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //technology
+        this.axios.get('/books/allBook/technology')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.technology = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //health
+        this.axios.get('/books/allBook/health')
+            .then(function (response) {
+                // console.log(response);
+                let res = response.data;
+                that.health = res.data;
             })
             .catch(function (error) {
                 console.log(error);
@@ -97,7 +269,7 @@ export default {
 }
 .bookList li{
     list-style: none;
-    width: 13%;
+    width: 10%;
     border: 1px solid #e5e9f2;
     height:auto;
     overflow: hidden;
@@ -109,16 +281,23 @@ export default {
     text-align: center;
 }
 .bookName{
-    font-size: 18px;
+    font-size: 14px;
     text-align: center;
+    display: block;
 }
 .bookPrice{
-    font-size: 16px;
+    font-size: 14px;
     display: block;
     text-align: center;
+    width: 100px;
+    padding-left: 15%
+}
+.bookImg{
+    width:90px;
+    height:90px;
 }
 .iconfont{
-    font-size: 24px;
-    padding-left: 10%;
+    font-size: 20px;
+    padding-left: 8%;
 }
 </style>

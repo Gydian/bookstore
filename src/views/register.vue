@@ -98,8 +98,8 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.fullscreenLoading = true;
-                    this.axios.post('/user/register', {
-                        userName: this.registerForm.account,
+                    this.axios.post('/users/user/register', {
+                        username: this.registerForm.account,
                         password: this.registerForm.pass,
                         name:this.registerForm.name
                     },

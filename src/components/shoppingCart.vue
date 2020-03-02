@@ -8,12 +8,12 @@
                             <el-checkbox v-model="scope.row.choice"></el-checkbox>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="bookImg" label="商品" width="150%" align="center">
+                    <el-table-column prop="image" label="商品" width="150%" align="center">
                         <template slot-scope="scope">
-                            <img  :src="scope.row.bookImg" alt="" style="width: 50px;height: 50px">
+                            <img  :src="scope.row.image" alt="" style="width: 50px;height: 50px">
                         </template>
                     </el-table-column>
-                    <el-table-column prop="bookName" label="商品名称" align="center"></el-table-column>
+                    <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
                     <el-table-column prop="count" label="数量" width="100%" align="center"></el-table-column>
                     <el-table-column prop="price" label="价格" align="center"></el-table-column>
                     <el-table-column label="操作" width="100%" fixed="right" align="center">
@@ -43,9 +43,9 @@ export default {
         return{
             tableData:[
                 {
-                    bookId:3,
-                    bookImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582633222938&di=e35ff1eaeae03cf6a9490ad957a2e7e2&imgtype=0&src=http%3A%2F%2Fpics3.baidu.com%2Ffeed%2F2fdda3cc7cd98d10f1d4501f7aae7e0a7bec9036.jpeg%3Ftoken%3D443af596fdf466f79ccd90c425b61da0%26s%3DAD44834FC672B7D413C40CB203005006',
-                    bookName:'河山大好',
+                    uuid:3,
+                    image:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582633222938&di=e35ff1eaeae03cf6a9490ad957a2e7e2&imgtype=0&src=http%3A%2F%2Fpics3.baidu.com%2Ffeed%2F2fdda3cc7cd98d10f1d4501f7aae7e0a7bec9036.jpeg%3Ftoken%3D443af596fdf466f79ccd90c425b61da0%26s%3DAD44834FC672B7D413C40CB203005006',
+                    name:'河山大好',
                     count:1,
                     price:33,
                     choice:false
@@ -64,24 +64,24 @@ export default {
             //判断是否已经存在于商品列表
             let isExist=false;
             for(let i=0;i<this.tableData.length;i++){
-                if(book.bookId==this.tableData[i].bookId){
+                if(book.uuid==this.tableData[i].uuid){
                     isExist=true;
                 }
             }
             //根据isExist编写业务逻辑
             if(isExist){
-                let arry=this.tableData.filter(o => o.bookId==book.bookId);
+                let arry=this.tableData.filter(o => o.uuid==book.uuid);
                 arry[0].count++;
                 //数据库
-            }else if(book.bookId!=''){
-                let newBook={bookId:book.bookId,bookName:book.bookName,price:book.price,count:1,bookImg:book.bookImg,choice:false};
+            }else if(book.uuid!=''){
+                let newBook={uuid:book.uuid,name:book.name,price:book.price,count:1,image:book.image,choice:false};
                 this.tableData.push(newBook);
                 //数据库
             }
             this.getTotal();
         },
         deleteSingle(book){
-            this.tableData=this.tableData.filter(o => o.bookId!=book.bookId);
+            this.tableData=this.tableData.filter(o => o.uuid!=book.uuid);
             //数据库
         },
         deleteAll(){

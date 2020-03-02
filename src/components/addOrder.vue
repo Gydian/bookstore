@@ -23,12 +23,12 @@
         <el-row>
             <el-col :span="20" :offset="2">
                 <el-table :data="orderAdd" border class="cart-div"> 
-                    <el-table-column prop="bookImg" label="商品" width="150%" align="center">
+                    <el-table-column prop="image" label="商品" width="150%" align="center">
                         <template slot-scope="scope">
-                            <img  :src="scope.row.bookImg" alt="" style="width: 50px;height: 50px">
+                            <img  :src="scope.row.image" alt="" style="width: 50px;height: 50px">
                         </template>
                     </el-table-column>
-                    <el-table-column prop="bookName" label="商品名称" align="center"></el-table-column>
+                    <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
                     <el-table-column prop="count" label="数量" width="100%" align="center"></el-table-column>
                     <el-table-column prop="price" label="价格" align="center"></el-table-column>
                 </el-table>
