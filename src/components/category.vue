@@ -4,9 +4,9 @@
             <el-tab-pane label="全部">
                 <div>
                     <ul class="bookList">
-                        <li v-for="book in books" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.bookImg" width=100%></span>
-                            <span class="bookName" @click="toDetail(book)">{{book.bookName}}</span>
+                        <li v-for="book in allbooks" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
                             </span>
@@ -14,7 +14,19 @@
                     </ul>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="小说">小说</el-tab-pane>
+            <el-tab-pane label="小说">
+                <div>
+                    <ul class="bookList">
+                        <li v-for="book in novel" :key="book">
+                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
+                            <span class="bookPrice">¥{{book.price}}元
+                                <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </el-tab-pane>
             <el-tab-pane label="育儿">育儿</el-tab-pane>
             <el-tab-pane label="艺术">艺术</el-tab-pane>
             <el-tab-pane label="历史">历史</el-tab-pane>
@@ -32,17 +44,8 @@ export default {
     name:'category',
     data(){
         return{
-            books:[{
-              bookId:1,
-              bookImg:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582630125376&di=b1034e8a884a7bca835c1394adb4c54e&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Fbmiddle%2Fd614cf54gy1gbj1cdlsdej20k00f0q7k.jpg",
-              bookName:'人间失格',
-              price:28
-          }, {
-              bookId:2,
-              bookImg:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582630286690&di=a5f3489d9d3e3227bae051b6df27f4c7&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201812%2F14%2F20181214235112_jbiio.thumb.700_0.jpg",
-              bookName:'月亮与六便士',
-              price:15
-          }],
+            allbooks:[],
+            novel:[],
         }
     },
     props:[
@@ -58,12 +61,25 @@ export default {
         },
         toDetail(book){
             this.$emit('transferCode',3);
-        }
+        },
     },
     mounted:function(){
+        var that = this;
         this.axios.get('/books/allBook/all')
             .then(function (response) {
                 console.log(response);
+                let res = response.data;
+                that.allbooks = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //novel
+        this.axios.get('/books/allBook/all')
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.novel = res.data;
             })
             .catch(function (error) {
                 console.log(error);
