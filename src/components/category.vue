@@ -152,6 +152,7 @@ export default {
             });
         },
         toDetail(book){
+            this.$emit('transferId',book.uuid);
             this.$emit('transferCode',3);
         },
     },

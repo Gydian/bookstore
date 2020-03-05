@@ -28,9 +28,9 @@
         </el-row>
         <el-row>
             <el-col>
-                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferCode="changeCode"></category>
+                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferCode="changeCode" @transferId="transferId"></category>
                 <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder"></shopping-cart>
-                <book-detail v-if="componentExchangeCode == 3"></book-detail>
+                <book-detail v-if="componentExchangeCode == 3" :bookid="bookid"></book-detail>
                 <add-order v-if="componentExchangeCode == 4" :orderAdd="order" @backToCart="changeCode"></add-order>
             </el-col>
         </el-row>
@@ -53,6 +53,7 @@ export default {
             componentExchangeCode:1,
             hackReset:true,
             order:[],
+            bookid:'',
         }
     },
     methods:{
@@ -74,6 +75,9 @@ export default {
         },
         addOrder(data){
             this.order=data;
+        },
+        transferId(data){
+            this.bookid=data;
         }
     },
     created:function(){
