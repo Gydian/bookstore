@@ -9,6 +9,7 @@
 
       <el-table-column
         label="商品"
+        align="center"
         width="150">
         <template slot-scope="scope">
           <img :src="scope.row.img" width="40" height="40" class="head_pic"/>
@@ -17,19 +18,23 @@
       <el-table-column
         prop="name"
         label="商品名称"
+        align="center"
         width="180">
       </el-table-column>
       <el-table-column
         prop="num"
-        label="数量">
+        label="数量"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="price"
-        label="价格">
+        label="价格"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="date"
         label="购买时间"
+        align="center"
         sortable>
       </el-table-column>
     </el-table>
@@ -51,6 +56,7 @@
 export default {
     data() {
       return {
+        //数据从数据库中读
         tableData: [{
           img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
           name: '中国诗词',

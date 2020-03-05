@@ -1,20 +1,24 @@
 <template>
     <div>
-      <p>我的头像：</p>
-      <el-upload
-        class="avatar-uploader"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload">
-        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-
-        <span>昵称：123</span>
-        <!-- <el-input v-model="USRNAME" placeholder="昵称" class="userName"></el-input> -->
-        <el-button type="text" @click="change">修改昵称</el-button>
-        <p>账号：12345678911</p>
+      <div class="pic">
+        <span>我的头像：</span>
+        <el-upload
+          class="avatar-uploader"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </div>
+      <div class="uname">
+        <span>昵称：</span> {{uName}}
+        <el-button type="text" @click="changeName">修改昵称</el-button>
+      </div>
+      <div class="uid">
+        <span>账号：</span> {{uID}}
+      </div>
     </div>
 
 </template>
@@ -23,19 +27,20 @@
 export default {
     data() {
         return{
-            imageUrl: ''
+            imageUrl: '', // 头像
+            uName: '',    // 昵称
+            uID: '123456789'       // 用户名
         };
     },
     methods:{
       // 修改昵称的弹出框
-        change(){
-            this.$prompt('请输入新昵称', '提示', {
+      changeName(){
+          this.$prompt('请输入新昵称', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-        //   inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        //   inputErrorMessage: '昵称格式不正确'
         }).then(({ value }) => {
-          this.$message({
+            this.uName = value;
+            this.$message({
             type: 'success',
             message: '你的新昵称是: ' + value
           });
@@ -48,13 +53,12 @@ export default {
         },
 
       // 上传头像
-        handleAvatarSuccess(res, file) {
+      handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG 格式!');
         }
@@ -69,6 +73,21 @@ export default {
 </script>
 
 <style>
+.pic {
+  position: absolute;
+  left: 680px;
+  top: 5%;
+}
+.uname {
+  position: absolute;
+  left: 700px;
+  top: 40%;
+}
+.uid {
+  position: absolute;
+  left: 700px;
+  top: 50%;
+}
 .userName {
     margin-top: 3%;
     display: inline-block;
