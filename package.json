@@ -15,7 +15,9 @@
     "qs": "^6.9.1",
     "vue": "^2.5.2",
     "vue-avatar": "^2.2.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.1.2",
+    "vuex-along": "^1.2.10"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

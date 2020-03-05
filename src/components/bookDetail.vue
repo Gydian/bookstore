@@ -9,8 +9,9 @@
                     </div>
                     </el-image>
                     <div>
-                        <span>标题</span>
-                        <span>作者</span>
+                        <span class="header">标题</span>
+                        <span class="author">作者</span>
+                        <span class="content">内容简介</span>
                     </div>
                 </div>
             </el-col>
@@ -18,7 +19,7 @@
         <el-row>
             <el-col :span="20" :offset="2" class="bottom">
                 <div>
-                    <span>作者</span>
+                    <span>其他信息</span>
                 </div>
             </el-col>
         </el-row>
@@ -46,5 +47,18 @@ export default {
 }
 .bottom{
     border: 1px solid lightgray;
+    height: 100px;
+}
+.header{
+    font-size: 32px;
+    margin: 2%;
+}
+.author{
+    display: block;
+    font-size: 18px;
+}
+.content{
+    display: block;
+    font-size: 18px;
 }
 </style>

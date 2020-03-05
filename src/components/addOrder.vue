@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="below-btn">
-                    <el-button>取消</el-button>
+                    <el-button @click="backToCart">取消</el-button>
                     <el-button>下单</el-button>
                     <!-- type有danger，warning，success等type -->
                 </div>
@@ -85,6 +85,9 @@ export default {
                 this.totalMoney+=Element.price*Element.count;
             });
         },
+        backToCart(){
+            this.$emit('backToCart',2);
+        }
     },
     mounted:function(){
         this.getTotal();

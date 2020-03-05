@@ -28,10 +28,10 @@
         </el-row>
         <el-row>
             <el-col>
-                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferBook="transferBook" @transferCode="changeCode"></category>
-                <shopping-cart v-if="componentExchangeCode == 2" :bookTransfer="book" @transferComponent="changeCode" @addOrder="addOrder" @clearBook="clearBook"></shopping-cart>
+                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferCode="changeCode"></category>
+                <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder"></shopping-cart>
                 <book-detail v-if="componentExchangeCode == 3"></book-detail>
-                <add-order v-if="componentExchangeCode == 4" :orderAdd="order"></add-order>
+                <add-order v-if="componentExchangeCode == 4" :orderAdd="order" @backToCart="changeCode"></add-order>
             </el-col>
         </el-row>
     </div>
@@ -51,12 +51,6 @@ export default {
             logoSrc:'http://img2.imgtn.bdimg.com/it/u=168577944,2704766384&fm=26&gp=0.jpg',
             userSrc:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582559980684&di=456abe524d8dd996422714c67a8f3fe6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F06%2F20180406192512_xfnyw.jpeg',
             componentExchangeCode:1,
-            book:{
-                bookId:'',
-                bookImg:'',
-                bookName:'',
-                price:''
-            },
             hackReset:true,
             order:[],
         }
@@ -68,9 +62,6 @@ export default {
         personal(){
             this.$router.push({ path: '/personal' });
         },
-        transferBook(book){
-            this.book=book;
-        },
         search(input){
             input=this.input;
             console.log(input)
@@ -80,10 +71,6 @@ export default {
 	      	this.$nextTick(() => {
 	       		this.hackReset = true
 	      	})
-        },
-        clearBook(data){
-            this.book=data;
-            console.log('111')
         },
         addOrder(data){
             this.order=data;

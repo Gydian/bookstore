@@ -18,7 +18,7 @@
                 <div>
                     <ul class="bookList">
                         <li v-for="book in novel" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -31,7 +31,7 @@
                 <div>
                     <ul class="bookList">
                         <li v-for="book in parenting" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -44,7 +44,7 @@
                 <div>
                     <ul class="bookList">
                         <li v-for="book in art" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -56,7 +56,7 @@
             <el-tab-pane label="历史"><div>
                     <ul class="bookList">
                         <li v-for="book in history" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -67,7 +67,7 @@
             <el-tab-pane label="教辅"><div>
                     <ul class="bookList">
                         <li v-for="book in education" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -78,7 +78,7 @@
             <el-tab-pane label="管理"><div>
                     <ul class="bookList">
                         <li v-for="book in management" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -89,7 +89,7 @@
             <el-tab-pane label="哲学"><div>
                     <ul class="bookList">
                         <li v-for="book in philosophy" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -100,7 +100,7 @@
             <el-tab-pane label="科技"><div>
                     <ul class="bookList">
                         <li v-for="book in technology" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -111,7 +111,7 @@
             <el-tab-pane label="健康"><div>
                     <ul class="bookList">
                         <li v-for="book in health" :key="book">
-                            <span class="" @click="toDetail(book)"><img :src="book.image" width=100%></span>
+                            <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
                                 <i @click="addToCart(book)" class="iconfont icon-gouwuchekong"></i>
@@ -145,7 +145,7 @@ export default {
     ],
     methods:{
         addToCart(book){
-            this.$emit('transferBook',book);
+            // this.$emit('transferBook',book);//直接加到数据库
             this.$message({
                 message: '已添加至购物车！',
                 type: 'success'

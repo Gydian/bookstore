@@ -26,6 +26,8 @@
     </div>
 </template>
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
     name:'login',
     data(){
@@ -42,9 +44,59 @@ export default {
         }
     },
     methods:{
-        login(){
-            this.$router.push({ path: '/main' });
-        },
+        ...mapMutations(['setToken']),
+        login() {
+            // this.$router.push({ path: '/main' });
+            let _this = this;
+            if (this.ID == '' || this.PWD == '') {
+                this.$alert('请输入账号或者密码', '提示', {
+                    confirmButtonText: '确定'
+                });
+            }
+            else {
+                this.fullscreenLoading = true;
+                this.axios.get('/users/user/login?username='+this.ID+'&password='+this.PWD
+                //  {
+                //     password: this.PWD,
+                //     userName: this.ID
+                // }
+                )
+                    .then((response) => {
+
+                        this.fullscreenLoading = false;
+                        console.log(response);
+                        if (response.status == 200) {
+
+                            //保存token
+                            _this.$message.success('登录成功');
+                            _this.token = response.data.msg;
+                            _this.setToken({ token: _this.token })
+
+                            //跳转页面
+                            this.$router.push({ path: '/main' });
+
+                            // 验证token
+                            var storage = window.localStorage;
+                            if (this.$store.state.token) {
+                                this.$router.push({ path: '/main' });
+                                console.log(this.$store.state.token.token);
+                            } else {
+                                this.$router.push({ path: '/login' });
+                            }
+
+                        }
+                        else {
+                            this.$alert(response.data.msg, '提示', {
+                                confirmButtonText: '确定'
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        this.fullscreenLoading = false;
+                        console.log(error);
+                    });
+                }
+            },
         register(){
             this.$router.replace('/register');
         }

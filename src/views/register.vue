@@ -10,10 +10,10 @@
                         <el-input v-model="registerForm.name"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="pass">
-                        <el-input v-model="registerForm.pass"></el-input>
+                        <el-input v-model="registerForm.pass" type="password"></el-input>
                     </el-form-item>
                     <el-form-item label="确认密码" prop="checkPass">
-                        <el-input v-model="registerForm.checkPass"></el-input>
+                        <el-input v-model="registerForm.checkPass" type="password"></el-input>
                     </el-form-item> 
 
                     <el-form-item>
@@ -98,17 +98,20 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.fullscreenLoading = true;
-                    this.axios.post('/users/user/register', {
-                        username: this.registerForm.account,
-                        password: this.registerForm.pass,
-                        name:this.registerForm.name
-                    },
-                    {
-                        headers: {
-                            "Access-Control-Allow-Origin":"http://192.168.11.249:9000",
-                            'Content-Type':'application/json'
-                        }
-                    })
+                    this.axios.post('/users/user/register?username='+this.registerForm.account+
+                    '&name='+this.registerForm.name+'&password='+this.registerForm.pass
+                    // {
+                    //     username: this.registerForm.account,
+                    //     password: this.registerForm.pass,
+                    //     name:this.registerForm.name
+                    // },
+                    // {
+                    //     headers: {
+                    //         "Access-Control-Allow-Origin":"http://192.168.11.249:9000",
+                    //         'Content-Type':'application/json'
+                    //     }
+                    // }
+                    )
                     .then( (respose) => {
                         this.fullscreenLoading = false;
                         this.$message.success('注册成功');

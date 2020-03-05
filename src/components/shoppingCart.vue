@@ -57,7 +57,7 @@ export default {
         }
     },
     props:[
-        'bookTransfer'
+        
     ],
     methods:{
         add(book){
@@ -107,10 +107,7 @@ export default {
         }
     },
     beforeMount:function(){
-        if(this.bookTransfer!=''){
-            this.add(this.bookTransfer);
-            this.$emit('clearBook','');
-        }
+        
     }
 }
 </script>
