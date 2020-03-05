@@ -2,7 +2,7 @@
     <div>
         <div class="detail">
             <el-row>
-                <el-col :span="24" class="top" v-for="one in book" :key="one">
+                <el-col :span="24" v-for="one in book" :key="one">
                     <div class="block">
                         <el-image :src="one.image" class="image">
                         <div slot="placeholder" class="image-slot">
@@ -28,8 +28,8 @@
                 </el-col>
             </el-row>
         </div>
-        <el-button type="primary" width="100px">加到购物车</el-button>
-        <el-button type="primary" width="100px">直接购买</el-button>
+        <el-button type="primary" class="btn" @click="addToCart()">加到购物车</el-button>
+        <el-button type="primary" class="btn" @click="checkout()">直接购买</el-button>
     </div>
 </template>
 <script>
@@ -38,6 +38,7 @@ export default {
     data(){
         return{
             book:[],
+            order:[],
         }
     },
     props:[
@@ -55,12 +56,26 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+    },
+    methods:{
+        addToCart(){
+            // this.$emit('transferBook',book);//直接加到数据库
+            this.$message({
+                message: '已添加至购物车！',
+                type: 'success'
+            });
+        },
+        checkout(){
+            this.$emit('changeComponent',4);
+            this.order=[{uuid:this.book[0].uuid,name:this.book[0].name,price:this.book[0].price,count:1,image:this.book[0].image}];
+            this.$emit('buy',this.order);
+            this.$emit('backToDetail',"detail");
+        }
     }
 }
 </script>
 <style scoped>
 .detail{
-    /* position:absolute;  */
     height:500px;
     overflow:scroll;
     margin-top: 3%;
@@ -69,11 +84,6 @@ export default {
     margin-right: 10%;
     border: 1px solid lightgray;
 }
-/* .top{
-    margin-top: 3%;
-    border: 1px solid lightgray;
-    border-bottom: none;
-} */
 .image{
     width:50%;
     height:30%;
@@ -102,5 +112,8 @@ export default {
 }
 .infoPanel{
     margin-top: 3%
+}
+.btn{
+    width: 10%;
 }
 </style>

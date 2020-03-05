@@ -29,7 +29,7 @@
                 </div>
                 <div class="below-btn">
                     <el-button @click="deleteAll">全部清空</el-button>
-                    <el-button @click="checkout()">结账</el-button>
+                    <el-button @click="checkout">结账</el-button>
                     <!-- type有danger，warning，success等type -->
                 </div>
             </el-col>
@@ -82,6 +82,7 @@ export default {
         },
         deleteSingle(book){
             this.tableData=this.tableData.filter(o => o.uuid!=book.uuid);
+            this.getTotal();
             //数据库
         },
         deleteAll(){
@@ -103,11 +104,12 @@ export default {
             this.$emit('transferComponent',4);
             this.order=this.tableData.filter(o => o.choice==true);
             this.$emit('addOrder',this.order);
+            this.$emit('backToCart',"cart");
             // this.tableData=this.tableData.filter(o => o.choice!=true);//确认下单后直接从数据库中删除
         }
     },
-    beforeMount:function(){
-        
+    mounted:function(){
+        this.getTotal();
     }
 }
 </script>

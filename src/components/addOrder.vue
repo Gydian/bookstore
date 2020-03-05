@@ -31,6 +31,12 @@
                     <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
                     <el-table-column prop="count" label="数量" width="100%" align="center"></el-table-column>
                     <el-table-column prop="price" label="价格" align="center"></el-table-column>
+                    <el-table-column label="操作" width="100%" fixed="right" align="center">
+                        <template slot-scope="scope">
+                            <el-button type="text" size="small" @click="deleteSingle(scope.row)">删除</el-button>
+                            <el-button type="text" size="small" @click="add(scope.row)">增加</el-button>
+                        </template>
+                    </el-table-column>
                 </el-table>
                 <div class="below"> 
                     <el-pagination
@@ -43,7 +49,7 @@
                     </div>
                 </div>
                 <div class="below-btn">
-                    <el-button @click="backToCart">取消</el-button>
+                    <el-button @click="back">取消</el-button>
                     <el-button>下单</el-button>
                     <!-- type有danger，warning，success等type -->
                 </div>
@@ -74,6 +80,7 @@ export default {
     },
     props:[
         'orderAdd',
+        'backToWhich'
     ],
     methods:{
         getTotal(){
@@ -85,8 +92,22 @@ export default {
                 this.totalMoney+=Element.price*Element.count;
             });
         },
-        backToCart(){
-            this.$emit('backToCart',2);
+        add(book){
+            let arry=this.orderAdd.filter(o => o.uuid==book.uuid);
+            arry[0].count++;
+            this.getTotal();
+        },
+        deleteSingle(book){
+            this.orderAdd=this.orderAdd.filter(o => o.uuid!=book.uuid);
+            this.getTotal();
+        },
+        back(){
+            if(this.backToWhich=="cart"){
+                this.$emit('back',2);
+            }
+            else if(this.backToWhich=="detail"){
+                this.$emit('back',3);
+            }
         }
     },
     mounted:function(){

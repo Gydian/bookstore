@@ -29,9 +29,9 @@
         <el-row>
             <el-col>
                 <category v-if="componentExchangeCode == 1 && hackReset==true" @transferCode="changeCode" @transferId="transferId"></category>
-                <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder"></shopping-cart>
-                <book-detail v-if="componentExchangeCode == 3" :bookid="bookid"></book-detail>
-                <add-order v-if="componentExchangeCode == 4" :orderAdd="order" @backToCart="changeCode"></add-order>
+                <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder" @backToCart="backToWhich"></shopping-cart>
+                <book-detail v-if="componentExchangeCode == 3" :bookid="bookid" @changeComponent="changeCode" @buy="addOrder" @backToDetail="backToWhich"></book-detail>
+                <add-order v-if="componentExchangeCode == 4" :orderAdd="order" @back="changeCode" :backToWhich='backVar'></add-order>
             </el-col>
         </el-row>
     </div>
@@ -54,6 +54,7 @@ export default {
             hackReset:true,
             order:[],
             bookid:'',
+            backVar:''
         }
     },
     methods:{
@@ -78,6 +79,9 @@ export default {
         },
         transferId(data){
             this.bookid=data;
+        },
+        backToWhich(data){
+            this.backVar=data;
         }
     },
     created:function(){
