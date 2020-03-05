@@ -1,11 +1,11 @@
 <template>
   <div>
+    <div class="t_pos">
     <el-table
       :data="tableData"
       border
       style="width: 90%"
-      :default-sort = "{prop: 'date', order: 'descending'}"
-      >
+      :default-sort = "{prop: 'date', order: 'descending'}">
 
       <el-table-column
         label="商品"
@@ -38,8 +38,9 @@
         sortable>
       </el-table-column>
     </el-table>
+    </div>
 
-  <div>
+    <div class="p_pos">
       <el-pagination
         :page-size="20"
         :pager-count="11"
@@ -94,5 +95,15 @@ export default {
 
 
 <style>
-
+.t_pos{
+  position: absolute;
+    left: 200px;
+    right: 10px;
+    top: 5%;
+}
+.p_pos{
+    position: absolute;
+    top: 80%;
+    left: 500px;
+}
 </style>

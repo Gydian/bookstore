@@ -13,11 +13,16 @@
         </el-upload>
       </div>
       <div class="uname">
-        <span>昵称：</span> {{uName}}
+          <span>昵称：</span> 
+          {{uName}}
         <el-button type="text" @click="changeName">修改昵称</el-button>
       </div>
+      
       <div class="uid">
-        <span>账号：</span> {{uID}}
+        <span>账号：</span> 
+      </div>
+      <div class="uid_pos">
+        {{uID}}
       </div>
     </div>
 
@@ -27,6 +32,7 @@
 export default {
     data() {
         return{
+            //从数据库获取
             imageUrl: '', // 头像
             uName: '',    // 昵称
             uID: '123456789'       // 用户名
@@ -76,17 +82,23 @@ export default {
 .pic {
   position: absolute;
   left: 680px;
-  top: 5%;
+  top: 10%;
 }
 .uname {
   position: absolute;
-  left: 700px;
-  top: 40%;
+  left: 710px;
+  top: 42%;
 }
+
 .uid {
   position: absolute;
-  left: 700px;
-  top: 50%;
+  left: 710px;
+  top: 53%;
+}
+.uid_pos{
+  position: absolute;
+  left: 760px;
+  top: 53%;
 }
 .userName {
     margin-top: 3%;

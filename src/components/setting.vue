@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row>
-            <el-col :span="20" :offset="1">
+            <el-col :span="20" :offset="2">
                 <el-button style="float:right" type="text" @click="handleAdd">添加收货地址</el-button>
                 <el-dialog :title="titleMap[dialogStatus]" :visible.sync="dialogFormVisible">
                     <el-form :model="form">
@@ -16,7 +16,6 @@
                         </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
-                        <!-- <el-button @click="dialogFormVisible = false">取 消</el-button> -->
                         <div v-if="this.dialogStatus=='addAddr'">
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
                             <el-button type="primary" @click="addDo(tableData)">确 定</el-button>
@@ -25,12 +24,11 @@
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
                             <el-button type="primary" @click="handleEdit()">确 定</el-button>
                         </div>
-
                     </div>
                 </el-dialog>
 
-                <div>
-                    <el-table :data="tableData" border class="cart-div">
+                <div class="t_pos">
+                    <el-table :data="tableData" border style="width: 90%">
                         <el-table-column
                             prop="name"
                             label="收货人"
@@ -41,40 +39,35 @@
                             prop="telnumber"
                             label="手机号码"
                             align="center"
-                            width="180">
+                            width="150%">
                         </el-table-column>
                         <el-table-column
                             prop="region"
                             label="详细地址"
-                            align="center"
-                            width="450">
+                            align="center">
                         </el-table-column>
-                        <el-table-column label="操作" fixed="right" align="center">
+                        <el-table-column label="操作" width="100%" fixed="right" align="center">
                             <template slot-scope="scope">
-                                <!-- <el-button
-                                size="mini"
-                                @click="dialogFormVisible = true">编辑</el-button> -->
-
+                                
 
                                 <el-button
-                                size="mini"
+                                type="text"
+                                size="small"
                                 @click="editShow(scope.row, scope.$index)">编辑</el-button>
 
                                 <el-button
-                                size="mini"
-                                type="danger"
+                                size="small"
+                                type="text"
                                 @click="handleDelete(scope.row)">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
 
-                    
+                </div>    
 
-
-                </div>
             </el-col>
         </el-row>
-        <div>
+        <div class="p_pos">
             <el-pagination
                 :page-size="20"
                 :pager-count="11"
@@ -171,6 +164,18 @@ export default {
 }
 </script>
 <style scoped>
+.t_pos{
+    position: absolute;
+    top: 100%;
+    left: 0px;
+}
+
+.p_pos{
+    position: absolute;
+    top: 80%;
+    left: 500px;
+}
+
 .cart-div{
     margin-top: 4%;
     margin-right: 10%;
