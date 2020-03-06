@@ -35,7 +35,7 @@ export default {
             //从数据库获取
             imageUrl: '', // 头像
             uName: '',    // 昵称
-            uID: '123456789'       // 用户名
+            uID: 'lyj'       // 用户名
         };
     },
     methods:{
@@ -73,6 +73,28 @@ export default {
         }
         return isJPG && isLt2M;
       }
+        
+    },
+    mounted:function(){
+      var that = this;
+        //获取昵称
+        this.axios.get('/users/user/lyj')
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.uName = res.data.name;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        // // 提交修改昵称
+        // this.axios.post('users/user/changename/lyj',{name:{{this.uName}}})
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
         
     }
 }
