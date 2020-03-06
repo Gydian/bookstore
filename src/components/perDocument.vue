@@ -82,7 +82,8 @@ export default {
             .then(function (response) {
                 console.log(response);
                 let res = response.data;
-                that.uName = res.data.name;
+                that.uName = res.data[0].name;
+                console.log(that.uName);
             })
             .catch(function (error) {
                 console.log(error);
