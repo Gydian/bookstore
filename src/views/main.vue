@@ -28,10 +28,11 @@
         </el-row>
         <el-row>
             <el-col>
-                <category v-if="componentExchangeCode == 1 && hackReset==true" @transferCode="changeCode" @transferId="transferId"></category>
+                <category v-if="componentExchangeCode == 1" @transferCode="changeCode" @transferId="transferId"></category>
                 <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder" @backToCart="backToWhich"></shopping-cart>
                 <book-detail v-if="componentExchangeCode == 3" :bookid="bookid" @changeComponent="changeCode" @buy="addOrder" @backToDetail="backToWhich"></book-detail>
                 <add-order v-if="componentExchangeCode == 4" :orderAdd="order" @back="changeCode" :backToWhich='backVar'></add-order>
+                <result v-if="componentExchangeCode == 5" :transferResult="result" @transferCode="changeCode" @transferId="transferId"></result>
             </el-col>
         </el-row>
     </div>
@@ -42,6 +43,7 @@ import category from '../components/category'
 import shoppingCart from '../components/shoppingCart'
 import bookDetail from '../components/bookDetail'
 import addOrder from '../components/addOrder'
+import result from '../components/result.vue'
 
 export default {
     name:'main',
@@ -51,10 +53,10 @@ export default {
             logoSrc:'http://img2.imgtn.bdimg.com/it/u=168577944,2704766384&fm=26&gp=0.jpg',
             userSrc:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582559980684&di=456abe524d8dd996422714c67a8f3fe6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F06%2F20180406192512_xfnyw.jpeg',
             componentExchangeCode:1,
-            hackReset:true,
             order:[],
             bookid:'',
-            backVar:''
+            backVar:'',
+            result:[]
         }
     },
     methods:{
@@ -67,12 +69,18 @@ export default {
         search(input){
             input=this.input;
             console.log(input)
+            var that = this;
             //请求
-            //刷新
-            this.hackReset = false;
-	      	this.$nextTick(() => {
-	       		this.hackReset = true
-	      	})
+            this.axios.get('/books/someBook/all?name='+input)
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.result = res.data;
+                that.componentExchangeCode = 5;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         },
         addOrder(data){
             this.order=data;
@@ -92,7 +100,8 @@ export default {
         category,
         shoppingCart,
         bookDetail,
-        addOrder
+        addOrder,
+        result
     }
 }
 </script>

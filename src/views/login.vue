@@ -69,17 +69,22 @@ export default {
 
                             //保存token
                             _this.$message.success('登录成功');
-                            _this.token = response.data.msg;
+                            _this.token = response.data.data[0].token;
                             _this.setToken({ token: _this.token })
 
                             //跳转页面
-                            this.$router.push({ path: '/main' });
+                            // this.$router.push({ path: '/main' });
 
                             // 验证token
                             var storage = window.localStorage;
+                            console.log(storage)
                             if (this.$store.state.token) {
-                                this.$router.push({ path: '/main' });
                                 console.log(this.$store.state.token.token);
+                                if(response.data.data[0].position=="ordinaryuser"){
+                                    this.$router.push({ path: '/main' });
+                                }else if(response.data.data[0].position=="administrator"){
+                                    console.log(11111)
+                                }
                             } else {
                                 this.$router.push({ path: '/login' });
                             }

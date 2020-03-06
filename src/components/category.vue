@@ -4,7 +4,7 @@
             <el-tab-pane label="全部">
                 <div>
                     <ul class="bookList">
-                        <li v-for="book in allbooks" :key="book">
+                        <li v-for="book in allbooks" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -17,7 +17,7 @@
             <el-tab-pane label="小说">
                 <div>
                     <ul class="bookList">
-                        <li v-for="book in novel" :key="book">
+                        <li v-for="book in novel" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -30,7 +30,7 @@
             <el-tab-pane label="育儿">
                 <div>
                     <ul class="bookList">
-                        <li v-for="book in parenting" :key="book">
+                        <li v-for="book in parenting" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -43,7 +43,7 @@
             <el-tab-pane label="艺术">
                 <div>
                     <ul class="bookList">
-                        <li v-for="book in art" :key="book">
+                        <li v-for="book in art" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -55,7 +55,7 @@
             </el-tab-pane>
             <el-tab-pane label="历史"><div>
                     <ul class="bookList">
-                        <li v-for="book in history" :key="book">
+                        <li v-for="book in history" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -66,7 +66,7 @@
                 </div></el-tab-pane>
             <el-tab-pane label="教辅"><div>
                     <ul class="bookList">
-                        <li v-for="book in education" :key="book">
+                        <li v-for="book in education" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -77,7 +77,7 @@
                 </div></el-tab-pane>
             <el-tab-pane label="管理"><div>
                     <ul class="bookList">
-                        <li v-for="book in management" :key="book">
+                        <li v-for="book in management" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -88,7 +88,7 @@
                 </div></el-tab-pane>
             <el-tab-pane label="哲学"><div>
                     <ul class="bookList">
-                        <li v-for="book in philosophy" :key="book">
+                        <li v-for="book in philosophy" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -99,7 +99,7 @@
                 </div></el-tab-pane>
             <el-tab-pane label="科技"><div>
                     <ul class="bookList">
-                        <li v-for="book in technology" :key="book">
+                        <li v-for="book in technology" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -110,7 +110,7 @@
                 </div></el-tab-pane>
             <el-tab-pane label="健康"><div>
                     <ul class="bookList">
-                        <li v-for="book in health" :key="book">
+                        <li v-for="book in health" :key="book.uuid">
                             <span @click="toDetail(book)"><img :src="book.image" class="bookImg"></span>
                             <span class="bookName" @click="toDetail(book)">{{book.name}}</span>
                             <span class="bookPrice">¥{{book.price}}元
@@ -141,7 +141,6 @@ export default {
         }
     },
     props:[
-        
     ],
     methods:{
         addToCart(book){
@@ -165,8 +164,6 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
-
-            
         },
         toDetail(book){
             this.$emit('transferId',book.uuid);

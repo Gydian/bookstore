@@ -114,9 +114,13 @@ export default {
                     )
                     .then( (respose) => {
                         this.fullscreenLoading = false;
-                        this.$message.success('注册成功');
-                        this.$router.push({ path: '/'});
                         console.log(respose);
+                        if(respose.data.msg=="用户已存在"){
+                            this.$message.error('用户已存在');
+                        }else{
+                            this.$message.success('注册成功');
+                            this.$router.push({ path: '/'});
+                        }
                     })
                     .catch( (error) => {
                         this.fullscreenLoading = false;
