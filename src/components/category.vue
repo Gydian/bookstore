@@ -145,16 +145,48 @@ export default {
     ],
     methods:{
         addToCart(book){
-            // this.$emit('transferBook',book);//直接加到数据库
-            this.$message({
-                message: '已添加至购物车！',
-                type: 'success'
+            var that=this;
+            this.axios.get('/shoppingCart/wqx')
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                let tableData = res.data;
+                let arry=tableData.filter(o => o.bookId==book.uuid);
+                if(arry!=''){
+                    that.$message({
+                            message: '已经加到购物车了哦！',
+                            type: 'error'
+                        });
+                }
+                else{
+                    that.addDirectly(book);
+                    }
+                })
+            .catch(function (error) {
+                console.log(error);
             });
+
+            
         },
         toDetail(book){
             this.$emit('transferId',book.uuid);
             this.$emit('transferCode',3);
         },
+        addDirectly(book){
+            this.axios.post('/shoppingCart/wqx?bookId='+book.uuid+'&num=1&singlePrice='+
+                book.price+'&image='+book.image+'&name='+book.name)
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                this.$message({
+                        message: '已添加至购物车！',
+                        type: 'success'
+                    });
+        }
     },
     mounted:function(){
         var that = this;

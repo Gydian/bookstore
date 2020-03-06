@@ -14,8 +14,8 @@
                         </template>
                     </el-table-column>
                     <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
-                    <el-table-column prop="count" label="数量" width="100%" align="center"></el-table-column>
-                    <el-table-column prop="price" label="价格" align="center"></el-table-column>
+                    <el-table-column prop="num" label="数量" width="100%" align="center"></el-table-column>
+                    <el-table-column prop="singlePrice" label="价格" align="center"></el-table-column>
                     <el-table-column label="操作" width="100%" fixed="right" align="center">
                         <template slot-scope="scope">
                             <el-button type="text" size="small" @click="deleteSingle(scope.row)">删除</el-button>
@@ -41,16 +41,7 @@ export default {
     name:'shoppingCart',
     data(){
         return{
-            tableData:[
-                {
-                    uuid:3,
-                    image:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582633222938&di=e35ff1eaeae03cf6a9490ad957a2e7e2&imgtype=0&src=http%3A%2F%2Fpics3.baidu.com%2Ffeed%2F2fdda3cc7cd98d10f1d4501f7aae7e0a7bec9036.jpeg%3Ftoken%3D443af596fdf466f79ccd90c425b61da0%26s%3DAD44834FC672B7D413C40CB203005006',
-                    name:'河山大好',
-                    count:1,
-                    price:33,
-                    choice:false
-                }
-            ],
+            tableData:[],
             totalCount:0,
             totalMoney:0,
             order:[],
@@ -61,43 +52,48 @@ export default {
     ],
     methods:{
         add(book){
-            //判断是否已经存在于商品列表
-            let isExist=false;
-            for(let i=0;i<this.tableData.length;i++){
-                if(book.uuid==this.tableData[i].uuid){
-                    isExist=true;
-                }
-            }
-            //根据isExist编写业务逻辑
-            if(isExist){
-                let arry=this.tableData.filter(o => o.uuid==book.uuid);
-                arry[0].count++;
-                //数据库
-            }else if(book.uuid!=''){
-                let newBook={uuid:book.uuid,name:book.name,price:book.price,count:1,image:book.image,choice:false};
-                this.tableData.push(newBook);
-                //数据库
-            }
+            let arry=this.tableData.filter(o => o.uuid==book.uuid);
+            arry[0].num++;
+            this.axios.put('/shoppingCart/'+book.uuid+'?num='+book.num)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
             this.getTotal();
         },
         deleteSingle(book){
+            this.axios.delete('/shoppingCart/'+book.uuid)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
             this.tableData=this.tableData.filter(o => o.uuid!=book.uuid);
             this.getTotal();
-            //数据库
         },
         deleteAll(){
             this.tableData=[];
             this.totalCount=0;
             this.totalMoney=0;
             //数据库
+            this.axios.delete('/shoppingCart/allBook/wqx')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         },
         getTotal(){
             this.totalCount=0;
             this.totalMoney=0;
             //进行数量和价格的汇总计算
             this.tableData.forEach((Element)=>{
-                this.totalCount+=Element.count;
-                this.totalMoney+=Element.price*Element.count;
+                this.totalCount+=Element.num;
+                this.totalMoney+=Element.singlePrice*Element.num;
             });
         },
         checkout(){
@@ -109,7 +105,17 @@ export default {
         }
     },
     mounted:function(){
-        this.getTotal();
+        var that = this;
+        this.axios.get('/shoppingCart/wqx')
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.tableData = res.data;
+                that.getTotal();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 }
 </script>

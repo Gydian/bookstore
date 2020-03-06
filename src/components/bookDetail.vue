@@ -59,7 +59,16 @@ export default {
     },
     methods:{
         addToCart(){
-            // this.$emit('transferBook',book);//直接加到数据库
+            //直接加到数据库
+            this.axios.post('/shoppingCart/wqx?bookId='+this.book[0].uuid+'&num=1&singlePrice='+
+            this.book[0].price+'&image='+this.book[0].image+'&name='+this.book[0].name)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
             this.$message({
                 message: '已添加至购物车！',
                 type: 'success'
@@ -67,7 +76,7 @@ export default {
         },
         checkout(){
             this.$emit('changeComponent',4);
-            this.order=[{uuid:this.book[0].uuid,name:this.book[0].name,price:this.book[0].price,count:1,image:this.book[0].image}];
+            this.order=[{uuid:this.book[0].uuid,name:this.book[0].name,singlePrice:this.book[0].price,num:1,image:this.book[0].image}];
             this.$emit('buy',this.order);
             this.$emit('backToDetail',"detail");
         }

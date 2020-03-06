@@ -29,8 +29,8 @@
                         </template>
                     </el-table-column>
                     <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
-                    <el-table-column prop="count" label="数量" width="100%" align="center"></el-table-column>
-                    <el-table-column prop="price" label="价格" align="center"></el-table-column>
+                    <el-table-column prop="num" label="数量" width="100%" align="center"></el-table-column>
+                    <el-table-column prop="singlePrice" label="价格" align="center"></el-table-column>
                     <el-table-column label="操作" width="100%" fixed="right" align="center">
                         <template slot-scope="scope">
                             <el-button type="text" size="small" @click="deleteSingle(scope.row)">删除</el-button>
@@ -88,13 +88,13 @@ export default {
             this.totalMoney=0;
             //进行数量和价格的汇总计算
             this.orderAdd.forEach((Element)=>{
-                this.totalCount+=Element.count;
-                this.totalMoney+=Element.price*Element.count;
+                this.totalCount+=Element.num;
+                this.totalMoney+=Element.singlePrice*Element.num;
             });
         },
         add(book){
             let arry=this.orderAdd.filter(o => o.uuid==book.uuid);
-            arry[0].count++;
+            arry[0].num++;
             this.getTotal();
         },
         deleteSingle(book){
