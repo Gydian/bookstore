@@ -46,7 +46,7 @@ import addOrder from '../components/addOrder'
 import result from '../components/result.vue'
 
 export default {
-    name:'main',
+    name:'mainComponent',
     data(){
         return {
             input:'',

@@ -79,6 +79,9 @@ export default {
     mounted: function () {
         var screenHeight = document.body.clientHeight;
         document.getElementById("left-nav").style.height = screenHeight + "px";
+
+        var storage = window.localStorage;
+        console.log(storage)
     }
 }
 </script>

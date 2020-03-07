@@ -77,7 +77,6 @@ export default {
 
                             // 验证token
                             var storage = window.localStorage;
-                            console.log(storage)
                             if (this.$store.state.token) {
                                 console.log(this.$store.state.token.token);
                                 if(response.data.data[0].position=="ordinaryuser"){
