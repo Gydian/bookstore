@@ -67,16 +67,18 @@ export default {
                         console.log(response);
                         if (response.status == 200) {
 
-                            //保存token
+                            //保存token username
                             _this.$message.success('登录成功');
                             _this.token = response.data.data[0].token;
-                            _this.setToken({ token: _this.token })
+                            _this.userName = this.ID;
+                            _this.setToken({ token: _this.token , name:_this.userName})
 
                             //跳转页面
                             // this.$router.push({ path: '/main' });
 
                             // 验证token
                             var storage = window.localStorage;
+                            console.log(storage);
                             if (this.$store.state.token) {
                                 console.log(this.$store.state.token.token);
                                 if(response.data.data[0].position=="ordinaryuser"){

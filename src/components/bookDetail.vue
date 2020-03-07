@@ -2,7 +2,7 @@
     <div>
         <div class="detail">
             <el-row>
-                <el-col :span="24" v-for="one in book" :key="one">
+                <el-col :span="24" v-for="one in book" :key="one.uuid">
                     <div class="block">
                         <el-image :src="one.image" class="image">
                         <div slot="placeholder" class="image-slot">
@@ -18,7 +18,7 @@
                 </el-col>
             </el-row>
             <el-row>
-                <el-col :span="24" class="bottom" v-for="one in book" :key="one">
+                <el-col :span="24" class="bottom" v-for="one in book" :key="one.uuid">
                     <div class="infoPanel">
                         <span class="otherInfo">价格：{{one.price}}</span>
                         <span class="otherInfo">出版社：{{one.press}}</span>
@@ -59,20 +59,41 @@ export default {
     },
     methods:{
         addToCart(){
-            //直接加到数据库
-            this.axios.post('/shoppingCart/wqx?bookId='+this.book[0].uuid+'&num=1&singlePrice='+
-            this.book[0].price+'&image='+this.book[0].image+'&name='+this.book[0].name)
+            var that=this;
+            this.axios.get('/shoppingCart/'+this.$store.state.name)
             .then(function (response) {
                 console.log(response);
-            })
+                let res = response.data;
+                let tableData = res.data;
+                let arry=tableData.filter(o => o.bookId==book.uuid);
+                if(arry!=''){
+                    that.$message({
+                            message: '已经加到购物车了哦！',
+                            type: 'error'
+                        });
+                }
+                else{
+                    that.addDirectly(book);
+                    }
+                })
             .catch(function (error) {
                 console.log(error);
             });
+        },
+        addDirectly(book){
+            this.axios.post('/shoppingCart/'+this.$store.state.name+'?bookId='+book.uuid+'&num=1&singlePrice='+
+                book.price+'&image='+book.image+'&name='+book.name)
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
-            this.$message({
-                message: '已添加至购物车！',
-                type: 'success'
-            });
+                this.$message({
+                        message: '已添加至购物车！',
+                        type: 'success'
+                    });
         },
         checkout(){
             this.$emit('changeComponent',4);

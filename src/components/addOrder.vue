@@ -112,6 +112,7 @@ export default {
     },
     mounted:function(){
         this.getTotal();
+        console.log(this.orderAdd)
     }
 }
 </script>
