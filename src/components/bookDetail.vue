@@ -60,12 +60,12 @@ export default {
     methods:{
         addToCart(){
             var that=this;
-            this.axios.get('/shoppingCart/'+this.$store.state.name)
+            this.axios.get('/shoppingCart/'+this.$store.state.token.name)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;
                 let tableData = res.data;
-                let arry=tableData.filter(o => o.bookId==book.uuid);
+                let arry=tableData.filter(o => o.bookId==that.book[0].uuid);
                 if(arry!=''){
                     that.$message({
                             message: '已经加到购物车了哦！',
@@ -73,16 +73,16 @@ export default {
                         });
                 }
                 else{
-                    that.addDirectly(book);
+                    that.addDirectly();
                     }
                 })
             .catch(function (error) {
                 console.log(error);
             });
         },
-        addDirectly(book){
-            this.axios.post('/shoppingCart/'+this.$store.state.name+'?bookId='+book.uuid+'&num=1&singlePrice='+
-                book.price+'&image='+book.image+'&name='+book.name)
+        addDirectly(){
+            this.axios.post('/shoppingCart/'+this.$store.state.token.name+'?bookId='+this.book[0].uuid+'&num=1&singlePrice='+
+                this.book[0].price+'&image='+this.book[0].image+'&name='+this.book[0].name)
                     .then(function (response) {
                         console.log(response);
                     })

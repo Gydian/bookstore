@@ -80,11 +80,11 @@ export default {
                             var storage = window.localStorage;
                             console.log(storage);
                             if (this.$store.state.token) {
-                                console.log(this.$store.state.token.token);
+                                console.log(this.$store.state.token.name);
                                 if(response.data.data[0].position=="ordinaryuser"){
                                     this.$router.push({ path: '/main' });
                                 }else if(response.data.data[0].position=="administrator"){
-                                    console.log(11111)
+                                    this.$router.push({ path:'/administration' });
                                 }
                             } else {
                                 this.$router.push({ path: '/login' });

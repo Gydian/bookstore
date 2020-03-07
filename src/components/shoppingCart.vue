@@ -79,7 +79,7 @@ export default {
             this.totalCount=0;
             this.totalMoney=0;
             //数据库
-            this.axios.delete('/shoppingCart/allBook/'+this.$store.state.name)
+            this.axios.delete('/shoppingCart/allBook/'+this.$store.state.token.name)
             .then(function (response) {
                 console.log(response);
             })
@@ -105,7 +105,8 @@ export default {
     },
     mounted:function(){
         var that = this;
-        this.axios.get('/shoppingCart/'+this.$store.state.name)
+        console.log(this.$store.state.token.name)
+        this.axios.get('/shoppingCart/'+this.$store.state.token.name)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;

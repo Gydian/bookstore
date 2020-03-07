@@ -145,7 +145,7 @@ export default {
     methods:{
         addToCart(book){
             var that=this;
-            this.axios.get('/shoppingCart/'+this.$store.state.name)
+            this.axios.get('/shoppingCart/'+this.$store.state.token.name)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;
@@ -170,7 +170,7 @@ export default {
             this.$emit('transferCode',3);
         },
         addDirectly(book){
-            this.axios.post('/shoppingCart/'+this.$store.state.name+'?bookId='+book.uuid+'&num=1&singlePrice='+
+            this.axios.post('/shoppingCart/'+this.$store.state.token.name+'?bookId='+book.uuid+'&num=1&singlePrice='+
                 book.price+'&image='+book.image+'&name='+book.name)
                     .then(function (response) {
                         console.log(response);
