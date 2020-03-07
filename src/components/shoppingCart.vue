@@ -79,7 +79,7 @@ export default {
             this.totalCount=0;
             this.totalMoney=0;
             //数据库
-            this.axios.delete('/shoppingCart/allBook/'+this.$store.state.token.name)
+            this.axios.delete('/shoppingCart/allBook/'+localStorage.name)
             .then(function (response) {
                 console.log(response);
             })
@@ -99,14 +99,16 @@ export default {
         checkout(){
             this.$emit('transferComponent',4);
             this.order=this.tableData.filter(o => o.choice==true);
+            console.log(this.tableData)
+            console.log(this.order)
             this.$emit('addOrder',this.order);
             this.$emit('backToCart',"cart");
         }
     },
     mounted:function(){
         var that = this;
-        console.log(this.$store.state.token.name)
-        this.axios.get('/shoppingCart/'+this.$store.state.token.name)
+        console.log(localStorage.name)
+        this.axios.get('/shoppingCart/'+localStorage.name)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;

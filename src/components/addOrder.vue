@@ -50,7 +50,7 @@
                 </div>
                 <div class="below-btn">
                     <el-button @click="back">取消</el-button>
-                    <el-button>下单</el-button>
+                    <el-button @click="placeOrder">下单</el-button>
                     <!-- type有danger，warning，success等type -->
                 </div>
             </el-col>
@@ -108,6 +108,19 @@ export default {
             else if(this.backToWhich=="detail"){
                 this.$emit('back',3);
             }
+        },
+        placeOrder(){
+            var sendJson = JSON.stringify(this.orderAdd);
+            console.log(sendJson);
+            this.axios.get('/orders/order',sendJson)
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.health = res.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         }
     },
     mounted:function(){

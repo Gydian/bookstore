@@ -145,7 +145,7 @@ export default {
     methods:{
         addToCart(book){
             var that=this;
-            this.axios.get('/shoppingCart/'+this.$store.state.token.name)
+            this.axios.get('/shoppingCart/'+localStorage.name)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;
@@ -170,7 +170,7 @@ export default {
             this.$emit('transferCode',3);
         },
         addDirectly(book){
-            this.axios.post('/shoppingCart/'+this.$store.state.token.name+'?bookId='+book.uuid+'&num=1&singlePrice='+
+            this.axios.post('/shoppingCart/'+localStorage.name+'?bookId='+book.uuid+'&num=1&singlePrice='+
                 book.price+'&image='+book.image+'&name='+book.name)
                     .then(function (response) {
                         console.log(response);
@@ -294,12 +294,9 @@ export default {
     margin-left: 2%;
     margin-right: 2%;
 }
-.bookImage{
-    width: 10%
-}
 .bookList li{
     list-style: none;
-    width: 10%;
+    width: 12%;
     border: 1px solid #e5e9f2;
     height:auto;
     overflow: hidden;
@@ -320,10 +317,10 @@ export default {
     display: block;
     text-align: center;
     width: 100px;
-    padding-left: 15%
+    padding-left: 20%
 }
 .bookImg{
-    width:90px;
+    width:100px;
     height:90px;
 }
 .iconfont{

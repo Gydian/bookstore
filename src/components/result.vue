@@ -90,7 +90,7 @@ export default {
     margin-top: 2%;
 }
 .center{
-    height: 500px;
+    height: 400px;
 }
 .header{
     display: block;
@@ -100,7 +100,7 @@ export default {
 }
 .bookList li{
     list-style: none;
-    width: 10%;
+    width: 13%;
     border: 1px solid #e5e9f2;
     height:auto;
     overflow: hidden;
@@ -121,10 +121,10 @@ export default {
     display: block;
     text-align: center;
     width: 100px;
-    padding-left: 15%
+    padding-left: 20%
 }
 .bookImg{
-    width:90px;
+    width:100px;
     height:90px;
 }
 .iconfont{

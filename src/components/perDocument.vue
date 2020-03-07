@@ -46,6 +46,15 @@ export default {
           cancelButtonText: '取消',
         }).then(({ value }) => {
             this.uName = value;
+               // 提交修改昵称
+            this.axios.put('users/user/changename/'+this.$store.state.token.name+'?name='+this.uName)
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
             this.$message({
             type: 'success',
             message: '你的新昵称是: ' + value
@@ -78,7 +87,8 @@ export default {
     mounted:function(){
       var that = this;
         //获取昵称
-        this.axios.get('/users/user/lyj')
+        console.log(this.$store.state.token.name)
+        this.axios.get('/users/user/'+this.$store.state.token.name)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;
@@ -88,14 +98,7 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
-        // // 提交修改昵称
-        // this.axios.post('users/user/changename/lyj',{name:{{this.uName}}})
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+        
         
     }
 }
