@@ -47,7 +47,7 @@ export default {
         }).then(({ value }) => {
             this.uName = value;
                // 提交修改昵称
-            this.axios.put('users/user/changename/'+this.$store.state.token.name+'?name='+this.uName)
+            this.axios.put('users/user/changename/'+localStorage.name+'?name='+this.uName)
                 .then(function (response) {
                     console.log(response);
                 })
@@ -87,8 +87,8 @@ export default {
     mounted:function(){
       var that = this;
         //获取昵称
-        console.log(this.$store.state.token.name)
-        this.axios.get('/users/user/'+this.$store.state.token.name)
+        console.log(localStorage.name)
+        this.axios.get('/users/user/'+localStorage.name)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;

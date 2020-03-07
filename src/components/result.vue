@@ -102,7 +102,7 @@ export default {
     list-style: none;
     width: 13%;
     border: 1px solid #e5e9f2;
-    height:auto;
+    height:145px;
     overflow: hidden;
     background-color: #fff;
     padding: 2px;

@@ -4,7 +4,7 @@
             <el-col :span="20" :offset="2" class="address">
                 <span class="tip-span">选择收货地址：</span>
                 <ul class="addressList">
-                    <li v-for="address in addressList" :key="address">
+                    <li v-for="address in addressList" :key="address.name">
                         <span class="name">{{address.name}}&nbsp :</span>
                         <span class="phoneNum">{{address.phoneNum}}</span>
                         <span class="userAddr">{{address.usrAddr}}</span>
@@ -39,10 +39,6 @@
                     </el-table-column>
                 </el-table>
                 <div class="below"> 
-                    <el-pagination
-                        layout="prev, pager, next"
-                        :total="1000">
-                    </el-pagination>
                     <div class="totalAccount">
                         <span>数量：</span> {{totalCount}} &nbsp &nbsp &nbsp
                         <span>金额：¥</span> {{totalMoney}} <span>元</span>
@@ -91,6 +87,7 @@ export default {
                 this.totalCount+=Element.num;
                 this.totalMoney+=Element.singlePrice*Element.num;
             });
+            this.totalMoney = this.totalMoney.toFixed(2)
         },
         add(book){
             let arry=this.orderAdd.filter(o => o.uuid==book.uuid);
@@ -112,7 +109,7 @@ export default {
         placeOrder(){
             var sendJson = JSON.stringify(this.orderAdd);
             console.log(sendJson);
-            this.axios.get('/orders/order',sendJson)
+            this.axios.post('/orders/order',sendJson)
             .then(function (response) {
                 console.log(response);
                 let res = response.data;
@@ -177,12 +174,13 @@ export default {
 }
 .totalAccount{
     margin-left: 70%;
-    margin-top: 3%
+    margin-top: 1%
 }
 .below-btn{
     margin-top: 3%
 }
 .below-btn button{
-    width: 8%
+    width: 8%;
+    margin-bottom: 2%;
 }
 </style>

@@ -95,6 +95,7 @@ export default {
                 this.totalCount+=Element.num;
                 this.totalMoney+=Element.singlePrice*Element.num;
             });
+            this.totalMoney = this.totalMoney.toFixed(2)
         },
         checkout(){
             this.$emit('transferComponent',4);
@@ -136,6 +137,7 @@ export default {
     margin-top: 3%
 }
 .below-btn button{
-    width: 8%
+    width: 8%;
+    margin-bottom: 2%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main">
         <el-row class="top">
             <el-col :xs="6" :sm="6" :md="6" :lg="6"> 
                 <el-image :src="logoSrc" class="logo-image" id="category" @click="changeCode(1)">
@@ -106,6 +106,9 @@ export default {
 }
 </script>
 <style scoped>
+.main{
+    overflow:scroll;
+}
 .logo-image{
     width: 30%;
 }
