@@ -60,7 +60,6 @@ export default {
                         this.fullscreenLoading = false;
                         console.log(response);
                         if (response.status == 200) {
-
                             //保存token username
                             _this.$message.success('登录成功');
                             _this.token = response.data.data[0].token;
@@ -81,7 +80,6 @@ export default {
                             } else {
                                 this.$router.push({ path: '/login' });
                             }
-
                         }
                         else {
                             this.$alert(response.data.msg, '提示', {

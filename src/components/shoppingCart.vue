@@ -122,7 +122,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style scoped lang="less">
 .cart-div{
     margin-top: 4%;
 }
@@ -134,10 +134,15 @@ export default {
     border-left: 1px solid rgb(228, 227, 227);
 }
 .below-btn{
-    margin-top: 3%
+    /deep/.el-button{
+        width: 10%;
+        margin-bottom: 4%;
+        padding: 10px;
+        border-radius: 5px;
+    }
 }
 .below-btn button{
-    width: 8%;
-    margin-bottom: 2%;
+    width: 10%;
+    margin: 2%;
 }
 </style>

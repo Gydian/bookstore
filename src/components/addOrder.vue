@@ -4,10 +4,13 @@
             <el-col :span="20" :offset="2" class="address">
                 <span class="tip-span">选择收货地址：</span>
                 <ul class="addressList">
-                    <li v-for="address in dataShow" :key="address.name">
-                        <span class="name">{{address.name}}&nbsp :</span>
-                        <span class="phoneNum">{{address.phoneNum}}</span>
-                        <span class="userAddr">{{address.usrAddr}}</span>
+                    <li v-for="address in dataShow" :key="address.index" @click="chooseAddr(address)"
+                    :class="{active:address.index==current}">
+                        <el-button>
+                            <span class="name">{{address.name}}&nbsp :</span>
+                            <span class="phoneNum">{{address.phoneNum}}</span>
+                            <span class="userAddr">{{address.usrAddr}}</span>
+                        </el-button>
                     </li>
                 </ul>
             </el-col>
@@ -19,7 +22,7 @@
         </el-row>
         <el-row>
             <el-col :span="20" :offset="2">
-                <el-table :data="order" border class="cart-div"> 
+                <el-table :data="order" border > 
                     <el-table-column prop="image" label="商品" width="150%" align="center">
                         <template slot-scope="scope">
                             <img  :src="scope.row.image" alt="" style="width: 50px;height: 50px">
@@ -57,65 +60,41 @@ export default {
         return{
             addressList:[
                 {
+                    index:1,
                     name:'gyd',
                     phoneNum:'1026613163',
                     usrAddr:'湖北省荆州市荆州区'
                 },
                 {
+                    index:2,
                     name:'ysh',
                     phoneNum:'1368324087',
                     usrAddr:'湖北省黄冈市麻城区'
                 },
                 {
+                    index:3,
                     name:'ysh',
                     phoneNum:'1368324087',
                     usrAddr:'湖北省黄冈市麻城区'
                 },
                 {
+                    index:4,
                     name:'ysh',
                     phoneNum:'1368324087',
                     usrAddr:'湖北省黄冈市麻城区'
                 },
                 {
+                    index:5,
                     name:'ysh',
                     phoneNum:'1368324087',
                     usrAddr:'湖北省黄冈市麻城区'
                 },
                 {
+                    index:6,
                     name:'ysh',
                     phoneNum:'1368324087',
                     usrAddr:'湖北省黄冈市麻城区'
                 },
-                {
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                }
             ],
             totalCount:0,
             totalMoney:0,
@@ -129,7 +108,9 @@ export default {
             // 当前显示的数据
             dataShow: "",
             // 默认当前显示第一页
-            currentPage: 0
+            currentPage: 0,
+            address:'',
+            current:0,
         }
     },
     props:[
@@ -164,22 +145,45 @@ export default {
                 this.$emit('back',3);
             }
         },
+        chooseAddr(address){
+            this.address=address;
+            console.log(this.address)
+            this.current = address.index;
+        },
         placeOrder(){
-            var sendJson = JSON.stringify(this.order);
-            console.log(sendJson);
-            this.axios.post('/orders/order',sendJson)
-            .then(function (response) {
-                console.log(response);
-                let res = response.data;
-                that.health = res.data;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+            if(this.address==''||this.address==null){
+                this.$message({
+                    message: '请选择收货地址',
+                    type: 'warning'
+                });
+            }
+            else{
+                if(this.order==''){
+                    this.$message({
+                        message: '请添加下单物品',
+                        type: 'warning'
+                    });
+                }else{
+                    var that=this;
+                    this.axios.post('/orders/order?name='+this.address.name+'&location='
+                    +this.address.usrAddr+'&phone='+this.address.phoneNum,this.order)
+                    .then(function (response) {
+                        console.log(response);
+                        that.$message({
+                            message: '下单成功',
+                            type: 'success'
+                        });
+                        that.back();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
         },
         changePage(){
             this.dataShow = this.totalPage[this.currentPage-1];
-        }
+        },
     },
     mounted:function(){
         this.order=this.orderAdd
@@ -195,8 +199,11 @@ export default {
         this.dataShow = this.totalPage[0];
     }
 }
+
+
+
 </script>
-<style scoped>
+<style scoped lang="less">
 .address{
     border: 1px solid #e5e9f2;
     border-bottom: none;
@@ -204,32 +211,50 @@ export default {
 }
 .addressList li{
     list-style: none;
-    width: 13%;
-    border: 1px solid #e5e9f2;
     height:auto;
-    overflow: hidden;
+    overflow: auto;
     background-color: #fff;
-    padding: 2px;
+    padding: 0px;
     float: left;
-    margin: 10px;
+    margin: 1%;
     margin-top: 5%;
     cursor: pointer;
     text-align: center;
+    /deep/.el-button{
+        border: 1px solid #e5e9f2;;
+        border-radius: 0;
+        padding: 5px;
+        font-size: 14px;
+        color: rgb(39, 37, 37);
+        font-weight: 400;
+    }
+    /deep/.el-button:hover{
+        background-color: rgb(231, 228, 228);
+    }
+}
+.active {
+    /deep/.el-button{
+        background-color: rgb(231, 228, 228);
+    }
 }
 .userAddr{
     display: block;
+    padding: 4px;
 }
 .phoneNum{
     display: block;
-    margin-top: 10%
+    margin-top: 10%;
+    padding: 4px;
 }
 .name{
     float: left;
+    padding: 2px;
 }
 .tip-span{
         display: block;
         float: left;
-        margin:2%
+        margin:2%;
+        color: rgb(34, 32, 32);
 }
 .pagination{
     border: 1px solid #e5e9f2;
@@ -244,13 +269,15 @@ export default {
 }
 .totalAccount{
     margin-left: 70%;
-    margin-top: 1%
+    margin-top: 1%;
 }
 .below-btn{
-    margin-top: 3%
-}
-.below-btn button{
-    width: 8%;
-    margin-bottom: 2%;
+    margin-top: 3%;
+    /deep/.el-button{
+        width: 8%;
+        margin-bottom: 2%;
+        padding: 10px;
+        border-radius: 5px;
+    }
 }
 </style>

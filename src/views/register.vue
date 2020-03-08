@@ -98,19 +98,13 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.fullscreenLoading = true;
-                    this.axios.post('/users/user/register?username='+this.registerForm.account+
-                    '&name='+this.registerForm.name+'&password='+this.registerForm.pass
-                    // {
-                    //     username: this.registerForm.account,
-                    //     password: this.registerForm.pass,
-                    //     name:this.registerForm.name
-                    // },
-                    // {
-                    //     headers: {
-                    //         "Access-Control-Allow-Origin":"http://192.168.11.249:9000",
-                    //         'Content-Type':'application/json'
-                    //     }
-                    // }
+                    // this.axios.post('/users/user/register?username='+this.registerForm.account+
+                    // '&name='+this.registerForm.name+'&password='+this.registerForm.pass
+                    this.axios.post('/users/user/register',this.qs.stringify({
+                            username: this.registerForm.account,
+                            name: this.registerForm.name,
+                            password: this.registerForm.pass,
+                        })
                     )
                     .then( (respose) => {
                         this.fullscreenLoading = false;
