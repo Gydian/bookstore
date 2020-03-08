@@ -3,12 +3,17 @@
         <el-row>
             <el-col :span="20" :offset="2">
                 <el-button style="float:right" type="text" @click="handleAdd">添加收货地址</el-button>
+<<<<<<< HEAD
                 <el-dialog :title="titleMap[dialogStatus]" :visible.sync="dialogFormVisible" @closed="reloadPage">
+=======
+                <el-dialog :title="titleMap[dialogStatus]" :visible.sync="dialogFormVisible">
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
                     <el-form :model="form">
                         <el-form-item label="收货人：" :label-width="formLabelWidth">
                         <el-input v-model="form.name" autocomplete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="手机号码：" :label-width="formLabelWidth">
+<<<<<<< HEAD
                         <el-input v-model="form.phone" autocomplete="off" maxlength="11"></el-input>
                         </el-form-item>
                         <el-form-item label="详细地址：" :label-width="formLabelWidth">
@@ -19,6 +24,18 @@
                         <div v-if="dialogStatus=='addAddr'">
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
                             <el-button type="primary" @click="addDo(form)">确 定</el-button>
+=======
+                        <el-input v-model="form.telnumber" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="详细地址：" :label-width="formLabelWidth">
+                        <el-input v-model="form.region" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <div v-if="this.dialogStatus=='addAddr'">
+                            <el-button @click="dialogFormVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="addDo(tableData)">确 定</el-button>
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
                         </div>
                         <div v-else>
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -36,13 +53,21 @@
                             width="100%">
                         </el-table-column>
                         <el-table-column
+<<<<<<< HEAD
                             prop="phone"
+=======
+                            prop="telnumber"
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
                             label="手机号码"
                             align="center"
                             width="150%">
                         </el-table-column>
                         <el-table-column
+<<<<<<< HEAD
                             prop="location"
+=======
+                            prop="region"
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
                             label="详细地址"
                             align="center">
                         </el-table-column>
@@ -67,7 +92,18 @@
 
             </el-col>
         </el-row>
+<<<<<<< HEAD
         
+=======
+        <div class="p_pos">
+            <el-pagination
+                :page-size="20"
+                :pager-count="11"
+                layout="prev, pager, next"
+                :total="1000">
+            </el-pagination>
+        </div>
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
     </div>
 </template>
 
@@ -76,16 +112,35 @@ export default {
     name:'setting',
     data(){
         return{
+<<<<<<< HEAD
             
             tableData: [],
+=======
+            tableData: [{
+                infoID:'1',
+                name: 'ysh',
+                telnumber: '12345678901',
+                region: '上海市普陀区金沙江路 1518 弄',
+            }, {
+                infoID:'2',
+                name: 'gyd',
+                telnumber: '12345123412',
+                region: '湖北省',
+            }],
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
 
             dialogTableVisible: false,
             dialogFormVisible: false,
             form: {
             id:'',
             name: '',
+<<<<<<< HEAD
             phone: '',
             location: '',
+=======
+            telnumber: '',
+            region: '',
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
             },
             formLabelWidth: '120px',
 
@@ -107,6 +162,7 @@ export default {
         },
         // 确认编辑成功
         handleEdit() {
+<<<<<<< HEAD
             // this.dialogFormVisible = false;
             // let _index = this.formIndex;    
             // this.tableData[_index] = form;    //根据索引赋值到list制定到数
@@ -143,6 +199,13 @@ export default {
                     console.log(error);
                 });
         },
+=======
+            this.dialogFormVisible = false;
+            let _index = this.formIndex;    
+            this.tableData[_index] = form;    //根据索引赋值到list制定到数
+            
+        },
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
         // 删除某行地址
         handleDelete(info) {
             this.$confirm('是否要删除此条收货地址?', '提示', {
@@ -150,8 +213,13 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
             }).then(() => {
+<<<<<<< HEAD
 
                 this.delete(info);
+=======
+                this.tableData=this.tableData.filter(o => o.infoID!=info.infoID);
+                // 数据库操作
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
                 this.$message({
                     type: 'success',
                     message: '删除成功!'
@@ -163,6 +231,7 @@ export default {
             });          
             });
         },
+<<<<<<< HEAD
         delete(info){
             // 数据库操作
                 var that = this;
@@ -179,10 +248,17 @@ export default {
         handleAdd() {
             // this.formIndex = "";        // 有问题
             // this.form = "";             // 有问题
+=======
+        // 显示添加地址
+        handleAdd() {
+            this.formIndex = "";        // 有问题
+            this.form = "";             // 有问题
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
             this.dialogFormVisible = true;
             this.dialogStatus = "addAddr";
         },
         // 确认添加地址
+<<<<<<< HEAD
         addDo(form){
             
             // this.fullscreenLoading = true;
@@ -232,6 +308,12 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+=======
+        addDo(){
+            tableData.push({name:'',telnumber:'',region:''})
+            this.dialogFormVisible = false;
+        }
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
     }
 }
 </script>
@@ -242,7 +324,15 @@ export default {
     left: 0px;
 }
 
+<<<<<<< HEAD
 
+=======
+.p_pos{
+    position: absolute;
+    top: 80%;
+    left: 500px;
+}
+>>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
 
 .cart-div{
     margin-top: 4%;
