@@ -32,7 +32,7 @@
                 <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder" @backToCart="backToWhich"></shopping-cart>
                 <book-detail v-if="componentExchangeCode == 3" :bookid="bookid" @changeComponent="changeCode" @buy="addOrder" @backToDetail="backToWhich"></book-detail>
                 <add-order v-if="componentExchangeCode == 4" :orderAdd="order" @back="changeCode" :backToWhich='backVar'></add-order>
-                <result v-if="componentExchangeCode == 5" :transferResult="result" @transferCode="changeCode" @transferId="transferId"></result>
+                <result v-if="componentExchangeCode == 5 && isFresh" :transferResult="result" @transferCode="changeCode" @transferId="transferId"></result>
             </el-col>
         </el-row>
     </div>
@@ -56,7 +56,8 @@ export default {
             order:[],
             bookid:'',
             backVar:'',
-            result:[]
+            result:[],
+            isFresh:true,
         }
     },
     methods:{
@@ -66,9 +67,12 @@ export default {
         personal(){
             this.$router.push({ path: '/personal' });
         },
+        reload () {
+            this.isFresh = false
+            this.$nextTick(() => (this.isFresh = true))
+        },
         search(input){
             input=this.input;
-            console.log(input)
             var that = this;
             //请求
             this.axios.get('/books/someBook/all?name='+input)
@@ -77,6 +81,7 @@ export default {
                 let res = response.data;
                 that.result = res.data;
                 that.componentExchangeCode = 5;
+                that.reload();
             })
             .catch(function (error) {
                 console.log(error);

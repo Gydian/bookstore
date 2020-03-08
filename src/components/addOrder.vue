@@ -4,7 +4,7 @@
             <el-col :span="20" :offset="2" class="address">
                 <span class="tip-span">选择收货地址：</span>
                 <ul class="addressList">
-                    <li v-for="address in addressList" :key="address.name">
+                    <li v-for="address in dataShow" :key="address.name">
                         <span class="name">{{address.name}}&nbsp :</span>
                         <span class="phoneNum">{{address.phoneNum}}</span>
                         <span class="userAddr">{{address.usrAddr}}</span>
@@ -14,15 +14,12 @@
         </el-row>
         <el-row>
             <el-col :span="20" :offset="2" class="pagination">
-                <el-pagination
-                    layout="prev, pager, next"
-                    :total="1000">
-                </el-pagination>
+                <el-pagination layout="prev, pager, next" :page-size="1" :total="pageNum" :current-page.sync="currentPage" @current-change="changePage()"></el-pagination>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="20" :offset="2">
-                <el-table :data="orderAdd" border class="cart-div"> 
+                <el-table :data="order" border class="cart-div"> 
                     <el-table-column prop="image" label="商品" width="150%" align="center">
                         <template slot-scope="scope">
                             <img  :src="scope.row.image" alt="" style="width: 50px;height: 50px">
@@ -68,10 +65,71 @@ export default {
                     name:'ysh',
                     phoneNum:'1368324087',
                     usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
+                },
+                {
+                    name:'ysh',
+                    phoneNum:'1368324087',
+                    usrAddr:'湖北省黄冈市麻城区'
                 }
             ],
             totalCount:0,
-            totalMoney:0
+            totalMoney:0,
+            order:[],
+            // 所有页面的数据
+            totalPage: [],
+            // 每页显示数量
+            pageSize: 5,
+            // 共几页
+            pageNum: 1,
+            // 当前显示的数据
+            dataShow: "",
+            // 默认当前显示第一页
+            currentPage: 0
         }
     },
     props:[
@@ -83,19 +141,19 @@ export default {
             this.totalCount=0;
             this.totalMoney=0;
             //进行数量和价格的汇总计算
-            this.orderAdd.forEach((Element)=>{
+            this.order.forEach((Element)=>{
                 this.totalCount+=Element.num;
                 this.totalMoney+=Element.singlePrice*Element.num;
             });
             this.totalMoney = this.totalMoney.toFixed(2)
         },
         add(book){
-            let arry=this.orderAdd.filter(o => o.uuid==book.uuid);
+            let arry=this.order.filter(o => o.uuid==book.uuid);
             arry[0].num++;
             this.getTotal();
         },
         deleteSingle(book){
-            this.orderAdd=this.orderAdd.filter(o => o.uuid!=book.uuid);
+            this.order=this.order.filter(o => o.uuid!=book.uuid);
             this.getTotal();
         },
         back(){
@@ -107,7 +165,7 @@ export default {
             }
         },
         placeOrder(){
-            var sendJson = JSON.stringify(this.orderAdd);
+            var sendJson = JSON.stringify(this.order);
             console.log(sendJson);
             this.axios.post('/orders/order',sendJson)
             .then(function (response) {
@@ -118,11 +176,23 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+        },
+        changePage(){
+            this.dataShow = this.totalPage[this.currentPage-1];
         }
     },
     mounted:function(){
+        this.order=this.orderAdd
         this.getTotal();
-        console.log(this.orderAdd)
+        // console.log(this.order)
+        //获取地址
+
+        //分页
+        this.pageNum = Math.ceil(this.addressList.length / this.pageSize) || 1;
+        for (let i = 0; i < this.pageNum; i++) {
+            this.totalPage[i] = this.addressList.slice(this.pageSize * i, this.pageSize * (i + 1))
+        }
+        this.dataShow = this.totalPage[0];
     }
 }
 </script>

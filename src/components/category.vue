@@ -16,8 +16,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="allNum" :hide-on-single-page="value"
-                            @prev-click="prePage(allbooks,allPage)" @next-click="nextPage(allbooks,allPage,allNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="allNum"
+                            :current-page.sync="currentPage.allbooks" @current-change="changePage(allbooks,allPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -35,8 +35,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="novelNum" :hide-on-single-page="value"
-                            @prev-click="prePage(novel,novelPage)" @next-click="nextPage(novel,novelPage,novelNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="novelNum"
+                            :current-page.sync="currentPage.novel" @current-change="changePage(novel,novelPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -54,8 +54,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="parentingNum" :hide-on-single-page="value"
-                            @prev-click="prePage(parenting,parentingPage)" @next-click="nextPage(parenting,parentingPage,parentingNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="parentingNum"
+                            :current-page.sync="currentPage.parenting" @current-change="changePage(parenting,parentingPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -73,8 +73,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="artNum" :hide-on-single-page="value"
-                            @prev-click="prePage(art,artPage)" @next-click="nextPage(art,artPage,artNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="artNum" 
+                            :current-page.sync="currentPage.art" @current-change="changePage(art,artPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -92,8 +92,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="historyNum" :hide-on-single-page="value"
-                            @prev-click="prePage(history,historyPage)" @next-click="nextPage(history,historyPage,historyNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="historyNum"
+                            :current-page.sync="currentPage.history" @current-change="changePage(history,historyPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -111,8 +111,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="educationNum" :hide-on-single-page="value"
-                            @prev-click="prePage(education,educationPage)" @next-click="nextPage(education,educationPage,educationNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="educationNum"
+                            :current-page.sync="currentPage.education" @current-change="changePage(education,educationPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -130,8 +130,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="managementNum" :hide-on-single-page="value"
-                            @prev-click="prePage(management,managementPage)" @next-click="nextPage(management,managementPage,managementNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="managementNum" 
+                            :current-page.sync="currentPage.management" @current-change="changePage(management,managementPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -149,8 +149,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="philosophyNum" :hide-on-single-page="value"
-                            @prev-click="prePage(philosophy,philosophyPage)" @next-click="nextPage(philosophy,philosophyPage,philosophyNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="philosophyNum" 
+                            :current-page.sync="currentPage.philosophy" @current-change="changePage(philosophy,philosophyPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -168,8 +168,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="technologyNum" :hide-on-single-page="value"
-                            @prev-click="prePage(technology,technologyPage)" @next-click="nextPage(technology,technologyPage,technologyNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="technologyNum" 
+                            :current-page.sync="currentPage.technology" @current-change="changePage(technology,technologyPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -187,8 +187,8 @@
                     </div>
                     <el-row> 
                         <el-col :span="20" :offset="2">
-                            <el-pagination :page-size="1" layout="prev, pager, next" :total="healthNum" :hide-on-single-page="value"
-                            @prev-click="prePage(health,healthPage)" @next-click="nextPage(health,healthPage,healthNum)"></el-pagination>
+                            <el-pagination :page-size="1" layout="prev, pager, next" :total="healthNum"
+                            :current-page.sync="currentPage.health" @current-change="changePage(health,healthPage)"></el-pagination>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -237,8 +237,18 @@ export default {
             technologyNum:1,
             healthNum:1,
             // 默认当前显示第一页
-            currentPage: 0,
-            value:false
+            currentPage: {
+                allbooks:1,
+                novel:1,
+                parenting:1,
+                art:1,
+                history:1,
+                education:1,
+                management:1,
+                philosophy:1,
+                technology:1,
+                health:1,
+            },
         }
     },
     props:[
@@ -285,72 +295,36 @@ export default {
                         type: 'success'
                     });
         },
-        nextPage(dataShow,totalPage,pageNum) {
-            if (this.currentPage == pageNum - 1) return ;
+        changePage(dataShow,totalPage){
             if(dataShow==this.allbooks){
-                this.allbooks = totalPage[++this.currentPage];
+                this.allbooks = totalPage[this.currentPage.allbooks-1];
             }
             else if(dataShow==this.novel){
-                this.novel = totalPage[++this.currentPage];
+                this.novel = totalPage[this.currentPage.novel-1];
             }
             else if(dataShow==this.parenting){
-                this.parenting = totalPage[++this.currentPage];
-                console.log(this.parenting)
+                this.parenting = totalPage[this.currentPage.parenting-1];
             }
             else if(dataShow==this.art){
-                this.art = totalPage[++this.currentPage];
+                this.art = totalPage[this.currentPage.art-1];
             }
             else if(dataShow==this.history){
-                this.history = totalPage[++this.currentPage];
+                this.history = totalPage[this.currentPage.history-1];
             }
             else if(dataShow==this.education){
-                this.education = totalPage[++this.currentPage];
+                this.education = totalPage[this.currentPage.education-1];
             }
             else if(dataShow==this.management){
-                this.management = totalPage[++this.currentPage];
+                this.management = totalPage[this.currentPage.management-1];
             }
             else if(dataShow==this.philosophy){
-                this.philosophy = totalPage[++this.currentPage];
+                this.philosophy = totalPage[this.currentPage.philosophy-1];
             }
             else if(dataShow==this.technology){
-                this.technology = totalPage[++this.currentPage];
+                this.technology = totalPage[this.currentPage.technology-1];
             }
             else if(dataShow==this.health){
-                this.health = totalPage[++this.currentPage];
-            }
-        },
-        prePage(dataShow,totalPage) {
-            if (this.currentPage == 0) return ;
-            if(dataShow==this.allbooks){
-                this.allbooks = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.novel){
-                this.allbooks = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.parenting){
-                this.parenting = totalPage[--this.currentPage];
-                console.log(this.parenting)
-            }
-            else if(dataShow==this.art){
-                this.art = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.history){
-                this.history = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.education){
-                this.education = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.management){
-                this.management = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.philosophy){
-                this.philosophy = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.technology){
-                this.technology = totalPage[--this.currentPage];
-            }
-            else if(dataShow==this.health){
-                this.health = totalPage[--this.currentPage];
+                this.health = totalPage[this.currentPage.health-1];
             }
         },
         pagination(totalPage, bookData, pageNum){
@@ -360,7 +334,7 @@ export default {
                 totalPage[i] = bookData.slice(this.pageSize * i, this.pageSize * (i + 1))
             }
             // 当前显示的内容
-            bookData = totalPage[this.currentPage];
+            bookData = totalPage[0];
             return [bookData,pageNum];
         }
     },
@@ -373,6 +347,7 @@ export default {
                 that.allbooks = res.data;
                 var data = that.pagination(that.allPage, that.allbooks,that.allNum);
                 that.allbooks=data[0]
+                // console.log(data[0]);
                 that.allNum=data[1]
             })
             .catch(function (error) {
