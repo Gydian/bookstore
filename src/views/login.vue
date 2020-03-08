@@ -40,7 +40,7 @@ export default {
                 backgroundPosition: "center center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
-            }
+            },
         }
     },
     methods:{
@@ -55,14 +55,8 @@ export default {
             }
             else {
                 this.fullscreenLoading = true;
-                this.axios.get('/users/user/login?username='+this.ID+'&password='+this.PWD
-                //  {
-                //     password: this.PWD,
-                //     userName: this.ID
-                // }
-                )
+                this.axios.get('/users/user/login?username='+this.ID+'&password='+this.PWD)
                     .then((response) => {
-
                         this.fullscreenLoading = false;
                         console.log(response);
                         if (response.status == 200) {
@@ -71,16 +65,14 @@ export default {
                             _this.$message.success('登录成功');
                             _this.token = response.data.data[0].token;
                             _this.userName = this.ID;
-                            _this.setToken({ token: _this.token , name:_this.userName})
-
-                            //跳转页面
-                            // this.$router.push({ path: '/main' });
+                            _this.position = response.data.data[0].position
+                            _this.setToken({ token: _this.token , name:_this.userName, position:_this.position})
+                            console.log(localStorage)
 
                             // 验证token
                             var storage = window.localStorage;
-                            console.log(storage);
                             if (this.$store.state.token) {
-                                console.log(this.$store.state.token.name);
+                                console.log(111)
                                 if(response.data.data[0].position=="ordinaryuser"){
                                     this.$router.push({ path: '/main' });
                                 }else if(response.data.data[0].position=="administrator"){
@@ -101,6 +93,8 @@ export default {
                         this.fullscreenLoading = false;
                         console.log(error);
                     });
+
+                
                 }
             },
         register(){

@@ -26,7 +26,7 @@ const router =  new Router({
       component:register
     },{
       path:'/main',
-      name:'mian',
+      name:'main',
       component:main
     },{
       path:'/personal',
@@ -75,14 +75,34 @@ const router =  new Router({
 //导航守卫
 //使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登录
 router.beforeEach((to, from, next) => {
-  let token = localStorage.getItem('token');
-  if (to.name !== 'login') {
-    if (token) next()
-    else next({ path: '/' })
-  } 
-  else {
-    if (token) next({ name: 'mian' })
-    else next()
-  }
+    let token = localStorage.getItem('token');
+    let position = localStorage.getItem('position')
+      if (to.name !== 'login') {
+          if (token) {
+            if(to.path==='/main'||to.path==='/personal'){
+              if(position==='ordinaryuser')
+                next()
+              else{
+                next('/')
+              }
+            }
+            else if(to.path==='/administration/bookManage'||to.path==='/administration/accountManage'
+              ||to.path==='/administration/registerStatistic'||to.path==='/administration/totalBookStatistic'
+              ||to.path==='/administration/newBookStatistic'||to.path==='/administration/salesStatistic'){
+                if(position ==='administrator')
+                  next()
+                else{
+                  next('/')
+                }
+            }
+            else{
+              next('/')
+            }
+          } 
+          else next({ path: '/' })
+      } 
+      else { 
+          next()
+      }
 })
 export default router
