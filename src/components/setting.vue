@@ -27,8 +27,8 @@
                     </div>
                 </el-dialog>
 
-                <div class="t_pos">
-                    <el-table :data="tableData" border style="width: 90%">
+                <!-- <div class="t_pos"> -->
+                    <el-table :data="tableData" border style="width: 90%" class="cart-div">
                         <el-table-column
                             prop="name"
                             label="收货人"
@@ -63,7 +63,7 @@
                         </el-table-column>
                     </el-table>
 
-                </div>    
+                <!-- </div>     -->
 
             </el-col>
         </el-row>
@@ -196,7 +196,7 @@ export default {
             //     });
             // this.dialogFormVisible = false;
 
-            var re = new RegExp('^[0-9]*$');
+            var re = new RegExp('^[1][3,4,5,7,8][0-9]{9}$');
             if(re.test(this.form.phone)){
                 this.fullscreenLoading = true;
                 this.axios.post('/addresses/'+localStorage.name+'?name='+this.form.name+
@@ -209,7 +209,7 @@ export default {
                 });
                 this.dialogFormVisible = false;
             }else{
-                alert('请输入11位数字！');
+                alert('电话号码格式不正确！');
             }
         },
 
@@ -245,6 +245,6 @@ export default {
 
 .cart-div{
     margin-top: 4%;
-    margin-right: 10%;
+    /* margin-right: 10%; */
 }
 </style>
