@@ -45,7 +45,6 @@
       </el-table-column>
     </el-table>
     </div>
-
   </div>
 
 </template>
@@ -111,9 +110,10 @@ export default {
 
 <style>
 .t_pos{
-  position: absolute;
-    left: 200px;
-    right: 10px;
-    top: 5%;
+  overflow: scroll;
+  height: 600px;
+  width: 80%;
+  border: 1px solid lightgray;
+  margin-top: 1%;
 }
 </style>

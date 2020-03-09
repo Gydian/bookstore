@@ -59,7 +59,7 @@ export default {
                     .then((response) => {
                         this.fullscreenLoading = false;
                         console.log(response);
-                        if (response.status == 200) {
+                        if (response.data.code == 200) {
                             //保存token username
                             _this.$message.success('登录成功');
                             _this.token = response.data.data[0].token;
@@ -71,14 +71,13 @@ export default {
                             // 验证token
                             var storage = window.localStorage;
                             if (this.$store.state.token) {
-                                console.log(111)
                                 if(response.data.data[0].position=="ordinaryuser"){
                                     this.$router.push({ path: '/main' });
                                 }else if(response.data.data[0].position=="administrator"){
-                                    this.$router.push({ path:'/administration' });
+                                    this.$router.push({ path:'/administration/bookManage' });
                                 }
                             } else {
-                                this.$router.push({ path: '/login' });
+                                this.$router.push({ path: '/' });
                             }
                         }
                         else {

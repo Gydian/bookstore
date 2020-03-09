@@ -237,9 +237,9 @@ export default {
 </script>
 <style scoped>
 .t_pos{
-    position: absolute;
+    /* position: absolute;
     top: 100%;
-    left: 0px;
+    left: 0px; */
 }
 
 

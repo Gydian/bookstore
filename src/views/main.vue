@@ -31,7 +31,7 @@
         <el-row>
             <el-col>
                 <category v-if="componentExchangeCode == 1" @transferCode="changeCode" @transferId="transferId"></category>
-                <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder" @backToCart="backToWhich"></shopping-cart>
+                <shopping-cart v-if="componentExchangeCode == 2" @transferComponent="changeCode" @addOrder="addOrder" @backToCart="backToWhich" @transferId="transferId"></shopping-cart>
                 <book-detail v-if="componentExchangeCode == 3" :bookid="bookid" @changeComponent="changeCode" @buy="addOrder" @backToDetail="backToWhich"></book-detail>
                 <add-order v-if="componentExchangeCode == 4" :orderAdd="order" @back="changeCode" :backToWhich='backVar'></add-order>
                 <result v-if="componentExchangeCode == 5 && isFresh" :transferResult="result" @transferCode="changeCode" @transferId="transferId"></result>
