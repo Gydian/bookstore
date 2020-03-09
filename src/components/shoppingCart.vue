@@ -10,7 +10,7 @@
                     </el-table-column>
                     <el-table-column prop="image" label="商品" width="150%" align="center">
                         <template slot-scope="scope">
-                            <img  :src="scope.row.image" alt="" style="width: 50px;height: 50px">
+                            <img @click="toDetail(scope.row)" :src="scope.row.image" alt="" style="width: 50px;height: 50px">
                         </template>
                     </el-table-column>
                     <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
@@ -51,6 +51,10 @@ export default {
         
     ],
     methods:{
+        toDetail(book){
+            this.$emit('transferId',book.bookId);
+            this.$emit('transferComponent',3);
+        },
         add(book){
             let arry=this.tableData.filter(o => o.uuid==book.uuid);
             arry[0].num++;

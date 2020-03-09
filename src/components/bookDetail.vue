@@ -51,7 +51,6 @@ export default {
                 console.log(response);
                 let res = response.data;
                 that.book = res.data;
-                console.log(that.book);
             })
             .catch(function (error) {
                 console.log(error);
