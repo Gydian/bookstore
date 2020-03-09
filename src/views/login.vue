@@ -59,7 +59,7 @@ export default {
                     .then((response) => {
                         this.fullscreenLoading = false;
                         console.log(response);
-                        if (response.status == 200) {
+                        if (response.data.code == 200) {
                             //保存token username
                             _this.$message.success('登录成功');
                             _this.token = response.data.data[0].token;

@@ -4,12 +4,12 @@
             <el-col :span="20" :offset="2" class="address">
                 <span class="tip-span">选择收货地址：</span>
                 <ul class="addressList">
-                    <li v-for="address in dataShow" :key="address.index" @click="chooseAddr(address)"
-                    :class="{active:address.index==current}">
+                    <li v-for="address in dataShow" :key="address.uuid" @click="chooseAddr(address)"
+                    :class="{active:address.uuid==current}">
                         <el-button>
                             <span class="name">{{address.name}}&nbsp :</span>
-                            <span class="phoneNum">{{address.phoneNum}}</span>
-                            <span class="userAddr">{{address.usrAddr}}</span>
+                            <span class="phoneNum">{{address.phone}}</span>
+                            <span class="userAddr">{{address.location}}</span>
                         </el-button>
                     </li>
                 </ul>
@@ -58,44 +58,7 @@ export default {
     name:'orderPage',
     data(){
         return{
-            addressList:[
-                {
-                    index:1,
-                    name:'gyd',
-                    phoneNum:'1026613163',
-                    usrAddr:'湖北省荆州市荆州区'
-                },
-                {
-                    index:2,
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    index:3,
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    index:4,
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    index:5,
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-                {
-                    index:6,
-                    name:'ysh',
-                    phoneNum:'1368324087',
-                    usrAddr:'湖北省黄冈市麻城区'
-                },
-            ],
+            addressList:[],
             totalCount:0,
             totalMoney:0,
             order:[],
@@ -148,7 +111,7 @@ export default {
         chooseAddr(address){
             this.address=address;
             console.log(this.address)
-            this.current = address.index;
+            this.current = address.uuid;
         },
         placeOrder(){
             if(this.address==''||this.address==null){
@@ -166,7 +129,7 @@ export default {
                 }else{
                     var that=this;
                     this.axios.post('/orders/order?name='+this.address.name+'&location='
-                    +this.address.usrAddr+'&phone='+this.address.phoneNum,this.order)
+                    +this.address.location+'&phone='+this.address.phone,this.order)
                     .then(function (response) {
                         console.log(response);
                         that.$message({
@@ -188,15 +151,29 @@ export default {
     mounted:function(){
         this.order=this.orderAdd
         this.getTotal();
-        // console.log(this.order)
+        var that = this;
         //获取地址
-
-        //分页
-        this.pageNum = Math.ceil(this.addressList.length / this.pageSize) || 1;
-        for (let i = 0; i < this.pageNum; i++) {
-            this.totalPage[i] = this.addressList.slice(this.pageSize * i, this.pageSize * (i + 1))
-        }
-        this.dataShow = this.totalPage[0];
+        this.axios.get('/addresses/'+localStorage.getItem('name'))
+            .then(function (response) {
+                that.addressList=response.data.data;
+                if(response.data.data==''){
+                    that.$message({
+                        message: '您还没有添加收货地址哦～请前往个人中心添加～',
+                        type: 'warning'
+                    });
+                }else{
+                    //分页
+                    that.pageNum = Math.ceil(that.addressList.length / that.pageSize) || 1;
+                    for (let i = 0; i < that.pageNum; i++) {
+                        that.totalPage[i] = that.addressList.slice(that.pageSize * i, that.pageSize * (i + 1))
+                    }
+                    that.dataShow = that.totalPage[0];
+                    console.log(that.dataShow)
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 }
 
@@ -223,6 +200,7 @@ export default {
     /deep/.el-button{
         border: 1px solid #e5e9f2;;
         border-radius: 0;
+        width:150px;
         padding: 5px;
         font-size: 14px;
         color: rgb(39, 37, 37);
