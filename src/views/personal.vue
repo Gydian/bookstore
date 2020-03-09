@@ -26,7 +26,7 @@
                     </ul>
                 </div>
             </el-col>
-            <el-col :span="20">
+            <el-col :span="20" class="scroll">
                 <per-document v-if="componentExchangeCode == 1"></per-document>
                 <order v-if="componentExchangeCode == 2"></order>
                 <setting v-if="componentExchangeCode == 3"></setting>
@@ -117,5 +117,8 @@ export default {
     bottom: 1px solid #20a0ff;
     padding: 10px;
     margin-top: 10%;
+}
+.scroll{
+    overflow: scroll;
 }
 </style>
