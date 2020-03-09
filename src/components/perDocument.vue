@@ -35,11 +35,7 @@ export default {
             //从数据库获取
             imageUrl: '', // 头像
             uName: '',    // 昵称
-<<<<<<< HEAD
             uID: ''       // 用户名
-=======
-            uID: 'lyj'       // 用户名
->>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
         };
     },
     methods:{
@@ -74,7 +70,6 @@ export default {
       // 上传头像
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
-<<<<<<< HEAD
         this.axios.put('users/user/changeimage/'+localStorage.name+'?image='+this.imageUrl)
                 .then(function (response) {
                     console.log(response);
@@ -82,8 +77,6 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 });
-=======
->>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -100,10 +93,7 @@ export default {
     },
     mounted:function(){
       var that = this;
-<<<<<<< HEAD
       this.uID = localStorage.name;
-=======
->>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
         //获取昵称
         console.log(localStorage.name)
         this.axios.get('/users/user/'+localStorage.name)

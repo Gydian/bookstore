@@ -18,20 +18,13 @@
                 <el-button id="shoppingCart" class="shoppingCart-btn" type="primary" @click="changeCode(2)">购物车</el-button>
             </el-col>
             <el-col :xs="6" :sm="6" :md="6" :lg="4"> 
-<<<<<<< HEAD
                 <el-image :src="userSrc" class="getgold_top_head_img" @click="personal()">
-=======
-                <el-image :src="userSrc" class="user-image" @click="personal()">
->>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
                     <div slot="error" class="image-slot">
                         <i class="el-icon-picture-outline"></i>
                     </div>
                 </el-image>
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
                 <!-- <avatar username="Jane Doe"></avatar> -->
             </el-col>
         </el-row>
@@ -110,7 +103,6 @@ export default {
         //请求
 
     },
-<<<<<<< HEAD
 
     // mounted:function(){
     //     var that = this;
@@ -129,8 +121,6 @@ export default {
     // },
 
 
-=======
->>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
     components:{
         category,
         shoppingCart,
@@ -159,7 +149,6 @@ export default {
 .user-image{
     width: 30%;
 }
-<<<<<<< HEAD
 /* 圆形头像 */
 .getgold_top_head_img{      
     height: 60px;
@@ -169,6 +158,4 @@ export default {
     -moz-border-radius:50%;
     margin-top: 15px;
 }
-=======
->>>>>>> 7d727507bef711739edeb4b9c6e1532699687345
 </style>
