@@ -13,7 +13,7 @@
         align="center"
         width="150">
         <template slot-scope="scope">
-          <img :src="scope.row.img" width="40" height="40" class="head_pic"/>
+          <img :src="scope.row.image" width="40" height="40" class="head_pic"/>
         </template>
       </el-table-column>
       <el-table-column
