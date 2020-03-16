@@ -236,11 +236,11 @@ export default {
 }
 </script>
 <style scoped>
-.t_pos{
-    /* position: absolute;
+/* .t_pos{
+    position: absolute;
     top: 100%;
-    left: 0px; */
-}
+    left: 0px;
+} */
 
 
 .cart-div{
