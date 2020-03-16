@@ -4,10 +4,11 @@
     <el-table
       :data="tableData"
       border
-      :default-sort = "{prop: 'date', order: 'descending'}">
+      style="width: 90%"
+      :default-sort = "{prop: 'time', order: 'descending'}">
 
       <el-table-column
-        prop="img"
+        prop="image"
         label="商品"
         align="center"
         width="150">
@@ -16,7 +17,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="bookName"
         label="商品名称"
         align="center"
         width="180">
@@ -32,7 +33,12 @@
         align="center">
       </el-table-column>
       <el-table-column
-        prop="date"
+        prop="location"
+        label="收货地址"
+        align="center">
+      </el-table-column>
+      <el-table-column
+        prop="time"
         label="购买时间"
         align="center"
         sortable>
