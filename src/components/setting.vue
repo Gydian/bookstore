@@ -27,7 +27,7 @@
                     </div>
                 </el-dialog>
 
-                <!-- <div class="t_pos"> -->
+                
                     <el-table :data="tableData" border style="width: 90%" class="cart-div">
                         <el-table-column
                             prop="name"
@@ -63,7 +63,7 @@
                         </el-table-column>
                     </el-table>
 
-                <!-- </div>     -->
+                
 
             </el-col>
         </el-row>
@@ -236,11 +236,7 @@ export default {
 }
 </script>
 <style scoped>
-.t_pos{
-    /* position: absolute;
-    top: 100%;
-    left: 0px; */
-}
+
 
 
 .cart-div{
