@@ -4,7 +4,7 @@
         <span>我的头像：</span>
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="doUpload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -35,7 +35,8 @@ export default {
             //从数据库获取
             imageUrl: '', // 头像
             uName: '',    // 昵称
-            uID: ''       // 用户名
+            uID: '' ,      // 用户名
+            doUpload:'/users/user/changeimage/'+localStorage.name
         };
     },
     methods:{
@@ -69,14 +70,10 @@ export default {
 
       // 上传头像
       handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        this.axios.put('users/user/changeimage/'+localStorage.name+'?image='+this.imageUrl)
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+
+        this.imageUrl = window.URL.createObjectURL(file.raw);
+        console.log(this.imageUrl)
+        console.log(res.pic_url)
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -87,7 +84,34 @@ export default {
         if (!isLt2M) {
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
-        return isJPG && isLt2M;
+        let fd = new FormData();//通过form数据格式来传
+        fd.append('image', file); //传文件
+        console.log(fd);
+        var that = this
+        this.axios({
+          url: 'users/user/changeimage/'+localStorage.name,
+          method: "put",
+          data: fd,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((data) => {
+          console.log(data)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+        // this.axios.put('users/user/changeimage/'+localStorage.name,this.qs.stringify({
+        //   image:fd
+        // }))
+        //   .then(function (response) {
+        //       console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //       console.log(error);
+        //   });
+
+
       }
         
     },

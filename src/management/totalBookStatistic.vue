@@ -148,7 +148,7 @@ export default {
                     console.log(this.timeGroup)
                     console.log(this.chartValue)
                     this.loadEcharts()
-                },500)
+                },1000)
             }
         },
         postMethod(time){
@@ -186,7 +186,7 @@ export default {
             sortKey(this.chartValue,'time')
             console.log(this.chartValue)
             this.loadEcharts()
-        },500)
+        },1000)
         
     }
 }

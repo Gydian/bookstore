@@ -1,26 +1,5 @@
 <template>
     <div>
-        <!-- <el-button @click="dialogFormVisible = true">新增管理员</el-button> -->
-        <!-- <el-dialog title="新增管理员" :visible.sync="dialogFormVisible">
-            <el-form :model="addAccountForm" status-icon label-width="100px" class="addAccountForm" ref="addAccountForm" :rules='rules'>
-                <el-form-item label="账号" prop="account">
-                        <el-input v-model="addAccountForm.account"></el-input>
-                    </el-form-item>
-                    <el-form-item label="昵称" prop="name">
-                        <el-input v-model="addAccountForm.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="密码" prop="pass">
-                        <el-input v-model="addAccountForm.pass" type="password"></el-input>
-                    </el-form-item>
-                    <el-form-item label="确认密码" prop="checkPass">
-                        <el-input v-model="addAccountForm.checkPass" type="password"></el-input>
-                    </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="submitForm('addAccountForm')"  v-loading.fullscreen.lock="fullscreenLoading">提交</el-button>
-                <el-button @click="resetForm('addAccountForm')">重置</el-button>
-            </div>
-        </el-dialog> -->
         <h2 class="textPos">新增管理员账户</h2>
         <el-row>
             <el-col :xs="{span:24,offset:0}" :sm="{span:15,offset:4}" :lg="{span:12,offset:6}">

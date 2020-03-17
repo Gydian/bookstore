@@ -39,17 +39,12 @@
                         </el-form-item>
                         <el-form-item label="商品图片：" :label-width="formLabelWidth">
                             <el-upload
-                                class="upload-demo"
-                                action="https://jsonplaceholder.typicode.com/posts/"
-                                :on-preview="handlePreview"
-                                :on-remove="handleRemove"
-                                :before-remove="beforeRemove"
-                                multiple
-                                :limit="1"
-                                :on-exceed="handleExceed"
-                                :file-list="form.image">
-                                <el-button size="small" type="primary">点击上传</el-button>
-                                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                                class="avatar-uploader"
+                                action="http://localhost:9010/photo/"
+                                :show-file-list="false"
+                                :before-upload="beforeAvatarUpload">
+                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </el-upload>
                         </el-form-item>
                     </el-form>
@@ -118,25 +113,46 @@ export default {
             dataShow: [],
             // 默认当前显示第一页
             currentPage: 1,
+            imageUrl: '', 
         }
     },
     methods:{
         toEdit(uuid){
             this.$router.push({ name:"bookDetail",params:{id:uuid}});
         },
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isJPG) {
+            this.$message.error('上传头像图片只能是 JPG 格式!');
+            }
+            if (!isLt2M) {
+            this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            let fd = new FormData();//通过form数据格式来传
+            fd.append('image', file); //传文件
+            this.form.image=fd
+        },
         // 添加书目的接口 有问题
         addBook(form){
-            // this.axios.post('books/aBook/?name='+this.form.name+'&author='+this.form.author+
-            // '&press='+this.form.press+'&sort='+this.form.sort+'&price='+this.form.price+'&stock='+this.form.stock+
-            // '&description='+this.form.description+'&image='+this.form.image)
-            //     .then(function (response) {
-            //         console.log(response);
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
-
-            // this.fullscreenLoading = true;
+            console.log(this.form.image)
+            this.fullscreenLoading = true;
+            var that = this
+            this.axios({
+            url: 'books/aBook/?name='+this.form.name+'&author='+this.form.author+
+            '&press='+this.form.press+'&sort='+this.form.sort+'&price='+this.form.price+'&stock='+this.form.stock+
+            '&description='+this.form.description,
+            method: "post",
+            data: this.form.image,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+            }).then((data) => {
+            console.log(data)
+            })
+            .catch((error)=>{
+            console.log(error)
+            })
             // this.axios.post('/books/aBook',this.qs.stringify({
             //         name: this.form.name,
             //         author: this.form.author,
@@ -162,13 +178,9 @@ export default {
             //     this.fullscreenLoading = false;
             //     console.log(error);
             // } )
-            this.dialogFormVisible = false;
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
         },
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择1个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
