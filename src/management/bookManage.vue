@@ -84,6 +84,8 @@
     </div>
 </template>
 <script>
+import { URL } from "url"
+
 export default {
     name:'bookManage',
     data(){
@@ -132,6 +134,10 @@ export default {
             let fd = new FormData();//通过form数据格式来传
             fd.append('image', file); //传文件
             this.form.image=fd
+            var binaryData = [];
+            binaryData.push(file);
+            this.imageUrl=window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
+            // this.imageUrl = URL.createObjectURL(file.raw);
         },
         // 添加书目的接口
         addBook(form){
@@ -218,5 +224,8 @@ export default {
 .addBtn{
     margin: 1%;
     float: right;
+}
+.avatar{
+    width: 50%;
 }
 </style> 
