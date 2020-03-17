@@ -24,7 +24,7 @@
                     </el-table-column>
                 </el-table>
                 <div class="total"> 
-                    <span>数量：</span> {{totalCount}} &nbsp &nbsp &nbsp
+                    <span>数量：</span> {{totalCount}} 
                     <span>金额：¥</span> {{totalMoney}} <span>元</span>
                 </div>
                 <div class="below-btn">

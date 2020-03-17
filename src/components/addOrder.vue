@@ -7,7 +7,7 @@
                     <li v-for="address in dataShow" :key="address.uuid" @click="chooseAddr(address)"
                     :class="{active:address.uuid==current}">
                         <el-button>
-                            <span class="name">{{address.name}}&nbsp :</span>
+                            <span class="name">{{address.name}} :</span>
                             <span class="phoneNum">{{address.phone}}</span>
                             <span class="userAddr">{{address.location}}</span>
                         </el-button>
@@ -40,7 +40,7 @@
                 </el-table>
                 <div class="below"> 
                     <div class="totalAccount">
-                        <span>数量：</span> {{totalCount}} &nbsp &nbsp &nbsp
+                        <span>数量：</span> {{totalCount}}
                         <span>金额：¥</span> {{totalMoney}} <span>元</span>
                     </div>
                 </div>
