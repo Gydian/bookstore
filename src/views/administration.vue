@@ -47,7 +47,7 @@ export default {
     name:'administration',
     data(){
         return{
-            logoSrc:'http://img2.imgtn.bdimg.com/it/u=168577944,2704766384&fm=26&gp=0.jpg',
+            logoSrc:'./static/logoBCL.png',
             activeIndex: '/administration/bookManage'
 
         }
