@@ -238,7 +238,6 @@ export default {
 <style scoped>
 
 
-
 .cart-div{
     margin-top: 4%;
     /* margin-right: 10%; */

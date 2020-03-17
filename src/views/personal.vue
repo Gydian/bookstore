@@ -59,21 +59,6 @@ export default {
         },
         changeCode(code) {
             this.componentExchangeCode = code;
-            if (code == 1) {
-                document.getElementById('order').classList.remove("activeBtn");
-                document.getElementById('setting').classList.remove("activeBtn");
-                document.getElementById('per-document').classList.add("activeBtn");
-            }
-            else if (code == 2) {
-                document.getElementById('per-document').classList.remove("activeBtn");
-                document.getElementById('setting').classList.remove("activeBtn");
-                document.getElementById('order').classList.add("activeBtn");
-            }
-            else if (code == 3) {
-                document.getElementById('order').classList.remove("activeBtn");
-                document.getElementById('per-document').classList.remove("activeBtn");
-                document.getElementById('setting').classList.add("activeBtn");
-            }
         },
     },
     mounted: function () {
