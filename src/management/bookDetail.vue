@@ -142,7 +142,7 @@ export default {
             console.log(error)
             })
             this.dialogFormVisible = false;
-            this.$message.success("编辑成功！")
+            this.$message.success("编辑成功！请刷新")
             this.$router.push({ path: '/administration/bookManage'});
         },
         reloadPage(){
@@ -213,7 +213,27 @@ export default {
     width: 20%;
     margin-top: 2%;
 }
-.avatar{
-    width: 50%;
-}
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>
