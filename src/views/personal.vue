@@ -83,7 +83,7 @@ export default {
     color:#fff;
     font-size: 10px;
     height: 100%;
-    background-color: rgb(245, 203, 97);
+    background-color: #1D8ce0;
     float: left;
 }
 
