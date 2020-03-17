@@ -74,10 +74,20 @@
                                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
                         </el-form-item> -->
+                        <el-form-item label="商品图片：" :label-width="formLabelWidth">
+                            <el-upload
+                                class="avatar-uploader"
+                                action="http://localhost:9010/photo/"
+                                :show-file-list="false"
+                                :before-upload="beforeAvatarUpload">
+                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="dialogFormVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="editBook()">确 定</el-button>
+                        <el-button type="primary" @click="editBook(changeInfo)">确 定</el-button>
                     </div>
                 </el-dialog>
             </el-col>
@@ -101,7 +111,8 @@ export default {
                 stock:'',
                 description:'',
                 image:'',
-            }
+            },
+            imageUrl: '', 
         }
     },
     methods:{
@@ -109,15 +120,48 @@ export default {
             this.dialogFormVisible = true;
             this.changeInfo = one;
         },
-        editBook(){
-            this.axios.put('/books/aBook'+this.$route.params.id)
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            this.reloadPage;
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isJPG) {
+            this.$message.error('上传头像图片只能是 JPG 格式!');
+            }
+            if (!isLt2M) {
+            this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            let fd = new FormData();//通过form数据格式来传
+            fd.append('image', file); //传文件
+            this.changeInfo.image=fd
+        },
+        editBook(changeInfo){
+            // this.axios.put('/books/aBook'+this.$route.params.id)
+            //     .then(function (response) {
+            //         console.log(response);
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
+            // this.reloadPage;
+            
+            console.log(this.changeInfo.image)
+            this.fullscreenLoading = true;
+            var that = this
+            this.axios({
+            url: 'books/aBook/'+this.$route.params.id+'?name='+this.changeInfo.name+'&author='+this.changeInfo.author+
+            '&press='+this.changeInfo.press+'&sort='+this.changeInfo.sort+'&price='+this.changeInfo.price+'&stock='+this.changeInfo.stock+
+            '&description='+this.changeInfo.description,
+            method: "put",
+            data: this.changeInfo.image,
+            headers: {
+                // 'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/changeInfo-data'
+            }
+            }).then((data) => {
+            console.log(data)
+            })
+            .catch((error)=>{
+            console.log(error)
+            })
             this.dialogFormVisible = false;
         },
         reloadPage(){
