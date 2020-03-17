@@ -49,7 +49,7 @@ export default {
     },
     data(){
         return{
-            logoSrc:'./static/logoBCL.png',
+            logoSrc:require("../assets/logoBCL.png") ,
             componentExchangeCode:1,
         }
     },
@@ -83,7 +83,7 @@ export default {
     color:#fff;
     font-size: 10px;
     height: 100%;
-    background-color: #1D8ce0;
+    background-color: rgb(245, 203, 97);
     float: left;
 }
 

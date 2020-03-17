@@ -110,9 +110,9 @@ export default {
                          this.chartValue[4], this.chartValue[5], this.chartValue[6]],
                         itemStyle : {
                             normal : {
-                                color:'#89F3C9',  //图例的icon图标颜色
+                                color:' rgb(245, 203, 97)',  //图例的icon图标颜色
                                 lineStyle:{
-                                    color:'#89F3C9'    //折线的颜色
+                                    color:' rgb(245, 203, 97)'    //折线的颜色
                                 }
                             }
                         },

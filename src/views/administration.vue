@@ -47,7 +47,7 @@ export default {
     name:'administration',
     data(){
         return{
-            logoSrc:'./static/logoBCL.png',
+            logoSrc:require("../assets/logoBCL.png") ,
             activeIndex: '/administration/bookManage'
 
         }
