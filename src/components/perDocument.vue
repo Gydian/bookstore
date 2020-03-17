@@ -4,7 +4,7 @@
         <span>我的头像：</span>
         <el-upload
           class="avatar-uploader"
-          :action="upload"
+          action="doUpload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -36,7 +36,7 @@ export default {
             imageUrl: '', // 头像
             uName: '',    // 昵称
             uID: '' ,      // 用户名
-            doUpload:''
+            doUpload:'/users/user/changeimage/'+localStorage.name
         };
     },
     methods:{
@@ -70,7 +70,7 @@ export default {
 
       // 上传头像
       handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+          this.imageUrl = window.URL.createObjectURL(file.raw);
         
       },
       beforeAvatarUpload(file) {
@@ -103,7 +103,9 @@ export default {
         .catch((error)=>{
           console.log(error)
         })
-        
+        var binaryData = [];
+        binaryData.push(file);
+        this.imageUrl=window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
       }
         
     },

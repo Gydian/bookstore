@@ -100,9 +100,20 @@ export default {
             this.backVar=data;
         }
     },
-    created:function(){
-        //请求
-
+    mounted:function(){
+        var that = this;
+        // 获取头像
+        console.log(localStorage.name)
+        this.axios.get('/users/user/'+localStorage.name)
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.userSrc = res.data[0].image;
+                console.log(that.userSrc);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     },
 
     mounted:function(){
@@ -157,6 +168,6 @@ export default {
     border-radius:50%;
     -webkit-border-radius:50%;
     -moz-border-radius:50%;
-    margin-top: 15px;
+    margin-top: -1%;
 }
 </style>

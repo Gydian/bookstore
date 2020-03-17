@@ -59,21 +59,6 @@
                         <el-form-item label="描述：" :label-width="formLabelWidth">
                             <el-input v-model="changeInfo.description" autocomplete="off"></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="商品图片：" :label-width="formLabelWidth">
-                            <el-upload
-                                class="upload-demo"
-                                action="https://jsonplaceholder.typicode.com/posts/"
-                                :on-preview="handlePreview"
-                                :on-remove="handleRemove"
-                                :before-remove="beforeRemove"
-                                multiple
-                                :limit="1"
-                                :on-exceed="handleExceed"
-                                :file-list="changeInfo.image">
-                                <el-button size="small" type="primary">点击上传</el-button>
-                                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                            </el-upload>
-                        </el-form-item> -->
                         <el-form-item label="商品图片：" :label-width="formLabelWidth">
                             <el-upload
                                 class="avatar-uploader"
@@ -112,6 +97,7 @@ export default {
                 description:'',
                 image:'',
             },
+            image:'',
             imageUrl: '', 
         }
     },
@@ -131,18 +117,12 @@ export default {
             }
             let fd = new FormData();//通过form数据格式来传
             fd.append('image', file); //传文件
-            this.changeInfo.image=fd
+            this.image=fd
+            var binaryData = [];
+            binaryData.push(file);
+            this.imageUrl=window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
         },
         editBook(changeInfo){
-            // this.axios.put('/books/aBook'+this.$route.params.id)
-            //     .then(function (response) {
-            //         console.log(response);
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
-            // this.reloadPage;
-            
             console.log(this.changeInfo.image)
             this.fullscreenLoading = true;
             var that = this
@@ -151,10 +131,9 @@ export default {
             '&press='+this.changeInfo.press+'&sort='+this.changeInfo.sort+'&price='+this.changeInfo.price+'&stock='+this.changeInfo.stock+
             '&description='+this.changeInfo.description,
             method: "put",
-            data: this.changeInfo.image,
+            data: this.image,
             headers: {
-                // 'Content-Type': 'multipart/form-data'
-                'Content-Type': 'multipart/changeInfo-data'
+                'Content-Type': 'multipart/form-data'
             }
             }).then((data) => {
             console.log(data)
@@ -163,6 +142,8 @@ export default {
             console.log(error)
             })
             this.dialogFormVisible = false;
+            this.$message.success("编辑成功！")
+            this.$router.push({ path: '/administration/bookManage'});
         },
         reloadPage(){
             var that = this;
@@ -231,5 +212,8 @@ export default {
 .btn{
     width: 20%;
     margin-top: 2%;
+}
+.avatar{
+    width: 50%;
 }
 </style>
