@@ -70,7 +70,7 @@
                     <el-table-column prop="stock" label="库存" align="center" width="100%" sortable></el-table-column>
                     <el-table-column label="操作" width="100%" fixed="right" align="center">
                         <template slot-scope="scope">
-                            <el-button type="text" size="small" @click="deleteSingle(scope.row)">删除</el-button>
+                            <el-button type="text" size="small" @click="deleteSingle(scope.row.uuid)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -133,7 +133,7 @@ export default {
             fd.append('image', file); //传文件
             this.form.image=fd
         },
-        // 添加书目的接口 有问题
+        // 添加书目的接口
         addBook(form){
             console.log(this.form.image)
             this.fullscreenLoading = true;
@@ -153,31 +153,40 @@ export default {
             .catch((error)=>{
             console.log(error)
             })
-            // this.axios.post('/books/aBook',this.qs.stringify({
-            //         name: this.form.name,
-            //         author: this.form.author,
-            //         press: this.form.press,
-            //         sort: this.form.sort,
-            //         price: this.form.price,
-            //         stock: this.form.stock,
-            //         description: this.form.description,
-            //         image: this.form.image,
-            //     })
-            // )
-            // .then( (respose) => {
-            //     this.fullscreenLoading = false;
-            //     console.log(respose);
-            //     if(respose.data.msg=="上传成功"){
-            //         this.$message.success('添加成功');
-            //     }else{
-            //         this.$message.error('添加失败');
-            //         // this.$router.push({ path: '/'});
-            //     }
-            // })
-            // .catch( (error) => {
-            //     this.fullscreenLoading = false;
-            //     console.log(error);
-            // } )
+            this.dialogFormVisible=false;
+            setTimeout(() => {
+                this.getAllBooks()
+            }, 500);
+        },
+        deleteSingle(uuid){
+            this.axios.delete('/books/aBook/'+uuid)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            //刷新
+            setTimeout(() => {
+                this.getAllBooks()
+            }, 500);
+        },
+        getAllBooks(){
+            var that = this
+            this.axios.get('/books/allBook/all')
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.tableData = res.data;
+                that.pageNum = Math.ceil(that.tableData.length / that.pageSize) || 1;
+                for (let i = 0; i < that.pageNum; i++) {
+                    that.totalPage[i] = that.tableData.slice(that.pageSize * i, that.pageSize * (i + 1))
+                }
+                that.dataShow = that.totalPage[0];
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -193,21 +202,7 @@ export default {
         }
     },
     mounted:function(){
-        var that = this;
-        this.axios.get('/books/allBook/all')
-            .then(function (response) {
-                console.log(response);
-                let res = response.data;
-                that.tableData = res.data;
-                that.pageNum = Math.ceil(that.tableData.length / that.pageSize) || 1;
-                for (let i = 0; i < that.pageNum; i++) {
-                    that.totalPage[i] = that.tableData.slice(that.pageSize * i, that.pageSize * (i + 1))
-                }
-                that.dataShow = that.totalPage[0];
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        this.getAllBooks()
     }
 }
 </script>
