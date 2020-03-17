@@ -115,6 +115,22 @@ export default {
             });
     },
 
+    mounted:function(){
+        var that = this;
+        // 获取头像
+        console.log(localStorage.name)
+        this.axios.get('/users/user/'+localStorage.name)
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.userSrc = res.data[0].image;
+                console.log(that.userSrc);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    },
+
 
     components:{
         category,
