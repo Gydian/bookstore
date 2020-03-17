@@ -95,6 +95,10 @@ export default {
           }
         }).then((data) => {
           console.log(data)
+          this.$message({
+            message: '上传头像成功',
+            type: 'success'
+          });
         })
         .catch((error)=>{
           console.log(error)
