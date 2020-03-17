@@ -11,6 +11,7 @@ import newBookStatistic from '@/management/newBookStatistic'
 import registerStatistic from '@/management/registerStatistic'
 import salesStatistic from '@/management/salesStatistic'
 import totalBookStatistic from '@/management/totalBookStatistic'
+import bookDetail from '@/management/bookDetail'
 
 Vue.use(Router)
 
@@ -66,6 +67,11 @@ const router =  new Router({
           path:'totalBookStatistic',
           name:'totalBookStatistic',
           component:totalBookStatistic
+        },
+        {
+          path:'bookDetail',
+          name:'bookDetail',
+          component:bookDetail
         }
       ]
     }
@@ -88,7 +94,8 @@ router.beforeEach((to, from, next) => {
             }
             else if(to.path==='/administration/bookManage'||to.path==='/administration/accountManage'
               ||to.path==='/administration/registerStatistic'||to.path==='/administration/totalBookStatistic'
-              ||to.path==='/administration/newBookStatistic'||to.path==='/administration/salesStatistic'){
+              ||to.path==='/administration/newBookStatistic'||to.path==='/administration/salesStatistic'
+              ||to.path==='/administration/bookDetail'){
                 if(position ==='administrator')
                   next()
                 else{

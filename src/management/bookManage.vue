@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div class="main">
         <el-row>
-            <el-button @click="dialogFormVisible = true">新增</el-button>
+            <el-col :span="20" :offset="2">
+            <el-button class="addBtn" @click="dialogFormVisible = true">新增</el-button>
                 
                 <el-dialog title="新增书目" :visible.sync="dialogFormVisible">
                     <el-form :model="form">
@@ -46,7 +47,7 @@
                                 multiple
                                 :limit="1"
                                 :on-exceed="handleExceed"
-                                :file-list="image">
+                                :file-list="form.image">
                                 <el-button size="small" type="primary">点击上传</el-button>
                                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
@@ -57,20 +58,21 @@
                         <el-button type="primary" @click="addBook(form)">确 定</el-button>
                     </div>
                 </el-dialog>
+            </el-col>
         </el-row>
 
         <el-row>
             <el-col :span="20" :offset="2">
-                <el-table :data="tableData" border :default-sort = "{prop: 'stock', order: 'descending'}"> 
+                <el-table :data="dataShow" border :default-sort = "{prop: 'stock', order: 'descending'}"> 
                     <el-table-column prop="image" label="商品" width="150%" align="center">
                         <template slot-scope="scope">
-                            <img @click="toEdit(scope.row)" :src="scope.row.image" alt="" style="width: 50px;height: 50px">
+                            <img @click="toEdit(scope.row.uuid)" :src="scope.row.image" alt="" style="width: 50px;height: 50px">
                         </template>
                     </el-table-column>
                     <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
                     <el-table-column prop="sort" label="类别" align="center"></el-table-column>
-                    <el-table-column prop="singlePrice" label="价格" align="center"></el-table-column>
-                    <el-table-column prop="stock" label="库存" align="center" width="100%"></el-table-column>
+                    <el-table-column prop="price" label="价格" align="center"></el-table-column>
+                    <el-table-column prop="stock" label="库存" align="center" width="100%" sortable></el-table-column>
                     <el-table-column label="操作" width="100%" fixed="right" align="center">
                         <template slot-scope="scope">
                             <el-button type="text" size="small" @click="deleteSingle(scope.row)">删除</el-button>
@@ -79,7 +81,10 @@
                 </el-table>
             </el-col>
         </el-row>
-        <el-row class="bottom">
+        <el-row class="bottom">  
+            <el-col :span="20" :offset="2">
+                <el-pagination layout="prev, pager, next" :page-size="1" :total="pageNum" :current-page.sync="currentPage" @current-change="changePage()"></el-pagination>
+            </el-col>
         </el-row>
     </div>
 </template>
@@ -102,12 +107,22 @@ export default {
                 description:'',
                 image:'',
             },
-            formLabelWidth: '120px'
+            formLabelWidth: '120px',
+            // 所有页面的数据
+            totalPage: [],
+            // 每页显示数量
+            pageSize: 6,
+            // 共几页
+            pageNum: 1,
+            // 当前显示的数据
+            dataShow: [],
+            // 默认当前显示第一页
+            currentPage: 1,
         }
     },
     methods:{
-        toEdit(){
-            
+        toEdit(uuid){
+            this.$router.push({ name:"bookDetail",params:{id:uuid}});
         },
         // 添加书目的接口 有问题
         addBook(form){
@@ -160,10 +175,41 @@ export default {
         },
         beforeRemove(file, fileList) {
             return this.$confirm(`确定移除 ${ file.name }？`);
+        },
+        changePage(){
+            this.dataShow = this.totalPage[this.currentPage-1];
         }
+    },
+    mounted:function(){
+        var that = this;
+        this.axios.get('/books/allBook/all')
+            .then(function (response) {
+                console.log(response);
+                let res = response.data;
+                that.tableData = res.data;
+                that.pageNum = Math.ceil(that.tableData.length / that.pageSize) || 1;
+                for (let i = 0; i < that.pageNum; i++) {
+                    that.totalPage[i] = that.tableData.slice(that.pageSize * i, that.pageSize * (i + 1))
+                }
+                that.dataShow = that.totalPage[0];
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 }
 </script>
 <style scoped>
-
+.main{
+    overflow: scroll;
+    width: 100%;
+    height:650px;
+}
+.bottom{
+    margin-top: 1%;
+}
+.addBtn{
+    margin: 1%;
+    float: right;
+}
 </style> 
