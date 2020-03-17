@@ -106,8 +106,8 @@ export default {
                 series: [
                     {   name: '站点一',
                         // data: [1, 2, 1.5, 4, 2, 1, 3],
-                        data: [this.chartValue[6], this.chartValue[5], this.chartValue[4], this.chartValue[3],
-                         this.chartValue[2], this.chartValue[1], this.chartValue[0]],
+                        data: [this.chartValue[0], this.chartValue[1], this.chartValue[2], this.chartValue[3],
+                         this.chartValue[4], this.chartValue[5], this.chartValue[6]],
                         itemStyle : {
                             normal : {
                                 color:'#89F3C9',  //图例的icon图标颜色
@@ -143,18 +143,20 @@ export default {
                     this.timeGroup[i] =new Date(timestamp).format('yyyy-MM-dd');
                 }
                 setTimeout(()=>{
+                    this.chartValue.sort(this.chartValue.time);
+                    sortKey(this.chartValue,'time')
                     console.log(this.timeGroup)
-                console.log(this.chartValue[0])
+                    console.log(this.chartValue)
                     this.loadEcharts()
                 },500)
             }
         },
         postMethod(time){
             var that = this
-            this.axios.get('/books/timeBook?dateTime1=2020-02-02 00:00:00&dateTime2='+time)
+                this.axios.get('/books/timeBook?dateTime1=2020-02-02 00:00:00&dateTime2='+time)
                 .then(function (response) {
                     console.log(response);
-                    that.chartValue.push(response.data.data)
+                    that.chartValue.push({time:time,value:response.data.data})
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -180,13 +182,21 @@ export default {
         console.log(this.timeGroup[0])
         console.log(this.chartValue)
         setTimeout(()=>{
-            console.log(this.chartValue[0])
+            this.chartValue.sort(this.chartValue.time);
+            sortKey(this.chartValue,'time')
+            console.log(this.chartValue)
             this.loadEcharts()
         },500)
         
     }
 }
-
+function sortKey(array,key){
+    return array.sort(function(a,b){
+        var x = a[key];
+        var y = b[key];
+        return ((x<y)?-1:(x>y)?1:0)
+    })
+}
 function minusDate(time) {
   //减一天
   var timestamp = Date.parse(new Date(time));
