@@ -41,14 +41,6 @@ export default {
     methods:{
         loadEcharts(){
             const option= {
-                legend: {
-                    data: ['书籍种数', '站点二'],
-                    textStyle: {
-                        color: '#fff',
-                        fontSize:'10px',
-                    },
-                    x: 'left',  
-                },
                 xAxis: {
                     type: 'category',   // 还有其他的type
                     data: [this.timeGroup[6], this.timeGroup[5], this.timeGroup[4], 
@@ -104,7 +96,7 @@ export default {
                     y2: 30
                 },
                 series: [
-                    {   name: '站点一',
+                    {   name: '总数',
                         // data: [1, 2, 1.5, 4, 2, 1, 3],
                         data: [this.chartValue[0], this.chartValue[1], this.chartValue[2], this.chartValue[3],
                          this.chartValue[4], this.chartValue[5], this.chartValue[6]],
@@ -232,7 +224,7 @@ Date.prototype.format = function(format) {
     padding-top: 2%;
     width: 96%;
     height: 400px;
-    background-color:lightgray;
+    background-color:rgb(222, 242, 245);
     margin-top: 3%;
     margin-left: 4%;
 }

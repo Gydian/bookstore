@@ -10,11 +10,27 @@
 export default {
   name: 'App',
   mounted(){
-            // // 关闭浏览器窗口的时候清空浏览器缓存在localStorage的数据 刷新也会清除
-            // window.onbeforeunload = function (e) {
-            //     var storage = window.localStorage;
-            //     storage.clear()
-            // }
+          window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
+          window.addEventListener('unload', e => this.unloadHandler(e))
+        },
+  destroyed() {
+          window.removeEventListener('beforeunload', e => this.beforeunloadHandler(e))
+          window.removeEventListener('unload', e => this.unloadHandler(e))
+        },
+        methods: {
+          beforeunloadHandler(){
+            this._beforeUnload_time=new Date().getTime();
+          },
+          unloadHandler(e){
+            this._gap_time=new Date().getTime()-this._beforeUnload_time;
+            //判断是窗口关闭还是刷新
+            if(this._gap_time<=5){
+              //如果是登录状态
+              if(this.$store.state.token){
+                  localStorage.clear()
+              }
+            }
+          },
         }
 }
 </script>

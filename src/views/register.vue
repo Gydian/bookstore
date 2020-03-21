@@ -133,7 +133,6 @@ export default {
 </script>
 <style>
 .bg-div{
-    background-color:silver;
     height:100%;
 }
 .registerForm {
