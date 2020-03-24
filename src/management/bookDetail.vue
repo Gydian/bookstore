@@ -108,9 +108,10 @@ export default {
         },
         beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg';
+            const isPNG = file.type === 'image/png';
             const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isJPG) {
-            this.$message.error('上传头像图片只能是 JPG 格式!');
+            if (!isJPG && !isPNG) {
+            this.$message.error('上传头像图片格式不对!');
             }
             if (!isLt2M) {
             this.$message.error('上传头像图片大小不能超过 2MB!');
@@ -123,27 +124,30 @@ export default {
             this.imageUrl=window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
         },
         editBook(changeInfo){
-            console.log(this.changeInfo.image)
-            this.fullscreenLoading = true;
-            var that = this
-            this.axios({
-            url: 'books/aBook/'+this.$route.params.id+'?name='+this.changeInfo.name+'&author='+this.changeInfo.author+
-            '&press='+this.changeInfo.press+'&sort='+this.changeInfo.sort+'&price='+this.changeInfo.price+'&stock='+this.changeInfo.stock+
-            '&description='+this.changeInfo.description,
-            method: "put",
-            data: this.image,
-            headers: {
-                'Content-Type': 'multipart/form-data'
+            if(this.image==''||this.image==null){
+                console.log("请先上传图片！")
+            }else{
+                console.log(this.changeInfo.image)
+                this.fullscreenLoading = true;
+                var that = this
+                this.axios({
+                url: 'books/aBook/'+this.$route.params.id+'?name='+this.changeInfo.name+'&author='+this.changeInfo.author+
+                '&press='+this.changeInfo.press+'&sort='+this.changeInfo.sort+'&price='+this.changeInfo.price+'&stock='+this.changeInfo.stock+
+                '&description='+this.changeInfo.description,
+                method: "put",
+                data: this.image,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+                }).then((data) => {
+                console.log(data)
+                })
+                .catch((error)=>{
+                console.log(error)
+                })
+                this.dialogFormVisible = false;
+                this.$message.success("编辑成功！")
             }
-            }).then((data) => {
-            console.log(data)
-            })
-            .catch((error)=>{
-            console.log(error)
-            })
-            this.dialogFormVisible = false;
-            this.$message.success("编辑成功！请刷新")
-            this.$router.push({ path: '/administration/bookManage'});
         },
         reloadPage(){
             var that = this;
